@@ -1,0 +1,30 @@
+.Header {
+    box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    /* justify-content: center; */
+    align-items: baseline;
+    padding: 1em;
+    margin-bottom: 2em;
+    background-color: rgb(192, 45, 26);
+    color: #fff;
+}
+.Header a{
+    color: inherit;
+    text-decoration: none;
+}
+.Header ul{
+    display: inline-flex;
+    /* list-style-type: none; */
+}
+.Header ul li{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+/* .Header table{
+    width: 100%;
+}
+.Header table th{
+    text-align: left;
+} */
+
