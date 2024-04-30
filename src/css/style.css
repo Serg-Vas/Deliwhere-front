@@ -1,3 +1,107 @@
-li{
+@font-face {
+    font-family: 'IndieFlower';
+    src: url('../fonts/IndieFlower.ttf');
+}
+
+body {
+    margin: 0px;
+    display: flex;
+    flex-direction: column;
+}
+
+h1 {
+    margin: 0 0 0 65px;
+    font-weight: normal;
+    font-size: 44px;
+}
+
+.Header a {
+    color: inherit;
+    text-decoration: none;
+}
+
+div .login,
+div .pages {
+    display: inline-flex;
+    margin: 15px;
+}
+
+.pages {
+    font-family: 'IndieFlower', 'sans serif';
+}
+
+.login {
+    gap: 25px;
+}
+
+.navbar {
+    background: linear-gradient(to bottom, #000000 0%, #DCDEDD 85%);
+    color: #FFFFFF;
+    margin: 0;
+    padding: 0;
+    display: inline-flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+li {
     list-style-type: none;
+    text-align: left;
+}
+
+.Header.restaurants {
+    position: relative;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.Header.restaurants figure {
+    position: relative;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+.Header.restaurants figcaption {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    align-content: center
+}
+
+.restaurant-item{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    font-family: 'IndieFlower', 'sans serif';
+    margin: 0;
+    padding: 0;
+}
+
+.board-text{
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    font-family: 'IndieFlower', 'sans serif';
+    margin: 0;
+    padding: 0;
+}
+
+.board{}
+
+.Header.restaurants div img{
+    width: 17.5vw;
+    height: 20vh;
 }

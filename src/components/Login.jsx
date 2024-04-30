@@ -50,7 +50,7 @@ const Login = ({onAuthNameChange, onLogin}) => {
             </button>
     
           {showModal && (
-            <div className="modal text-dark" tabIndex="-1" role="dialog" style={{ display: "block" }}>
+            <div className="modal text-dark" tabIndex="-1" role="dialog" style={{ display: "block"}}>
               <div className="modal-dialog" role="document">
                 <div className="modal-content">
                   <div className="modal-header">

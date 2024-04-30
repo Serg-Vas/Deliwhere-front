@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import "./css/style.css"
-import "./css/Header.css"
+// import "./css/Header.css"
 import Token from './components/Token.jsx'
 
 // ReactDOM.createRoot(document.getElementById('root')).render(

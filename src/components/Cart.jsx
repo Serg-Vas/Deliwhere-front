@@ -19,12 +19,12 @@ const Cart = (props) => {
 
   function test() {
     const store = localStorage.getItem("food")
-    console.log( localStorage.getItem("food"), store, JSON.stringify(new Set(store)));
+    console.log(localStorage.getItem("food"), store, JSON.stringify(new Set(store)));
     localStorage.clear();
   }
 
   const [sum, setSum] = useState(0);
-  let subSum0 = list.reduce(function(map, obj) {
+  let subSum0 = list.reduce(function (map, obj) {
     map[obj.name] = 0;
     return map;
   }, {});
@@ -32,21 +32,30 @@ const Cart = (props) => {
   const [subSum, setSubSum] = useState(subSum0);
   useEffect(() => {
     console.log(subSum, '- Has changed2')
-    const sum2 = Object.values(subSum).reduce((sum, current) => sum+current, 0);
+    const sum2 = Object.values(subSum).reduce((sum, current) => sum + current, 0);
     setSum(sum2);
-  },[subSum])
+  }, [subSum])
 
   console.log(subSum, 'subSum')
 
   return (
-    <div>
-        <h1>Cart</h1>
-        {/* <h3>{localStorage.getItem("food").replace(/["\[\]]/g, '')}</h3> */}
-        {/* <button onClick={test}>Submit</button> */}
-        <Register subSum={subSum} sum={sum}/>
-        {list.map((food) => (<ChoosedFood setOrdered={setOrdered} key={food.id} name={food.name} price={food.price} sum={subSum} setSum={setSubSum}/>))}
-        <h3>Total price: {sum}</h3>
-    </div>
+    <section className="Header restaurants">
+      <nav className='board' style={{ position: 'relative' }}>
+        <img src="sighboard.svg" style={{ width: "25vw" }} />
+        <h1 className='board-text'>Cart</h1>
+      </nav>
+      <figure>
+        <img src="table.svg" alt="Description of the image" style={{ width: "80vw" }} />
+        <figcaption>
+          {list.map((food) => (<ChoosedFood setOrdered={setOrdered} key={food.id} name={food.name} price={food.price} sum={subSum} setSum={setSubSum} />))}
+        </figcaption>
+          <h3>Total price: {sum}</h3>
+      </figure>
+      {/* <h1>Cart</h1> */}
+      {/* <h3>{localStorage.getItem("food").replace(/["\[\]]/g, '')}</h3> */}
+      {/* <button onClick={test}>Submit</button> */}
+      {/* <Register subSum={subSum} sum={sum}/> */}
+    </section>
   )
 }
 

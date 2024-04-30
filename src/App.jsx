@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router,  Routes,  Route,  Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Shops from './components/Shops';
 import Cart from './components/Cart';
 import MainPage from './components/MainPage';
@@ -11,91 +11,91 @@ import Token from './components/Token';
 
 const baseUrl = 'https://reqres.in/api/unknown/1'
 
-class App extends React.Component{
+class App extends React.Component {
   constructor(props) {
     super(props);
-        this.state = {
-            authName: '',
-            isLoggedIn: false,
-            shops: [
-          //     {
-          //     "id": 1,
-          //     "name": "McDonalds",
-          //     "food": [
-          //         {
-          //             "id": 1,
-          //             "name": "Burger",
-          //             "price": 100
-          //         },
-          //         {
-          //             "id":2,
-          //             "name": "DoubleBurger",
-          //             "price": 250
-          //         },
-          //         {
-          //             "id":3,
-          //             "name": "TripleBurger",
-          //             "price": 350
-          //         }
-          //     ]
-          // },
-          // {
-          //     "id":2,
-          //     "name": "KFC",
-          //     "food": [
-          //         {
-          //             "id": 11,
-          //             "name": "Burger 2",
-          //             "price": 100
-          //         },
-          //         {
-          //             "id":12,
-          //             "name": "DoubleBurger 2",
-          //             "price": 250
-          //         },
-          //         {
-          //             "id":13,
-          //             "name": "TripleBurger 2",
-          //             "price": 350
-          //         }
-          //     ]
-          // }
-        ]
-        }
+    this.state = {
+      authName: '',
+      isLoggedIn: false,
+      shops: [
+        //     {
+        //     "id": 1,
+        //     "name": "McDonalds",
+        //     "food": [
+        //         {
+        //             "id": 1,
+        //             "name": "Burger",
+        //             "price": 100
+        //         },
+        //         {
+        //             "id":2,
+        //             "name": "DoubleBurger",
+        //             "price": 250
+        //         },
+        //         {
+        //             "id":3,
+        //             "name": "TripleBurger",
+        //             "price": 350
+        //         }
+        //     ]
+        // },
+        // {
+        //     "id":2,
+        //     "name": "KFC",
+        //     "food": [
+        //         {
+        //             "id": 11,
+        //             "name": "Burger 2",
+        //             "price": 100
+        //         },
+        //         {
+        //             "id":12,
+        //             "name": "DoubleBurger 2",
+        //             "price": 250
+        //         },
+        //         {
+        //             "id":13,
+        //             "name": "TripleBurger 2",
+        //             "price": 350
+        //         }
+        //     ]
+        // }
+      ]
+    }
   }
-    
-    handleLogin = () => {
-      this.setState({ isLoggedIn: true });
-    };
 
-    handleLogout = () => {
-      this.setState({ isLoggedIn: false });
-      this.setState({ authName: '' });
-    };
+  handleLogin = () => {
+    this.setState({ isLoggedIn: true });
+  };
 
-    handleAuthNameChange = (newAuthName) => {
-      this.setState({ authName: newAuthName });
-    };
+  handleLogout = () => {
+    this.setState({ isLoggedIn: false });
+    this.setState({ authName: '' });
+  };
 
-    componentDidMount() {
-      const url = "http://localhost/DeliveryBack/SelectRestaurants.php"
-      // const url = "/shops.json";
-      fetch(url)
-            .then(response => response.json())
-            .then(shops => {
-              // Отримали дані з JSON-файлу
-              console.log('shops', shops)
-              this.setState({
-                shops: shops
-              });
-            })
-            .catch(error => {
-              console.error('Помилка при завантаженні JSON-файлу:', error);
-              // Обробка помилки
-            });
-        }
+  handleAuthNameChange = (newAuthName) => {
+    this.setState({ authName: newAuthName });
+  };
 
-  render(){
+  componentDidMount() {
+    const url = "http://localhost/DeliveryBack/SelectRestaurants.php"
+    // const url = "/shops.json";
+    fetch(url)
+      .then(response => response.json())
+      .then(shops => {
+        // Отримали дані з JSON-файлу
+        console.log('shops', shops)
+        this.setState({
+          shops: shops
+        });
+      })
+      .catch(error => {
+        console.error('Помилка при завантаженні JSON-файлу:', error);
+        // Обробка помилки
+      });
+  }
+
+  render() {
     const { isLoggedIn } = this.state;
     const { shops } = this.state;
     console.log(shops)
@@ -108,39 +108,40 @@ class App extends React.Component{
       <div className="">
         {/* <Header /> */}
         <Router>
-          <div className="Header">
-            <nav>
-              <ul>
-                <li><h1><Link to="/">Shops</Link></h1></li>
-                <li><h1>|</h1></li>
-                <li><h1><Link to="/cart">Cart</Link></h1></li>
-                {shops.length > 0 && shops.map((shop) => (<li><h1><Link to={"/"+shop.id}>{shop.name}</Link></h1></li>))}
-              </ul>
-              <div>
+          <header className="Header">
+            <nav className="navbar">
+              <div className='pages'>
+                <h1><Link to="/">Shops</Link></h1>
+                {/* <li><h1>|</h1></li> */}
+                <h1><Link to="/cart">Cart</Link></h1>
+              </div>
+              {shops.length > 0 && shops.map((shop) => (<li><h1><Link to={"/" + shop.id}>{shop.name}</Link></h1></li>))}
+              <div className='login'>
                 {!isLoggedIn && <Login onLogin={this.handleLogin} onAuthNameChange={this.handleAuthNameChange} />}
-                {!isLoggedIn && <Register onLogin={this.handleLogin} onAuthNameChange={this.handleAuthNameChange}/>}
-                {isLoggedIn && <Logout onLogout={this.handleLogout}/>}
+                {!isLoggedIn && <Register onLogin={this.handleLogin} onAuthNameChange={this.handleAuthNameChange} />}
+                {isLoggedIn && <Logout onLogout={this.handleLogout} />}
                 <p>{this.state.authName}</p>
               </div>
-              {/* <Link to="/login">Login</Link> */}
-              {/* <Link to="/register">Register</Link> */}
-              {/* <Login onAuthNameChange={this.handleAuthNameChange}/>
+            </nav>
+            {/* <Link to="/login">Login</Link> */}
+            {/* <Link to="/register">Register</Link> */}
+            {/* <Login onAuthNameChange={this.handleAuthNameChange}/>
               <Register onAuthNameChange={this.handleAuthNameChange}/>
             <p>{this.state.authName}</p> */}
-              <div>
-                        <Token />
-              </div>
-            </nav>
-          </div>
-
+            <div>
+              {/* <Token /> */}
+            </div>
+          </header>
+          <main>
           <Routes>
-            <Route path="/cart" element={<Cart food={sumWithInitial}/>}></Route>
-            {shops.map((shop) => (<Route path={"/"+shop.id} element={<Shops food={shop.food}/>}></Route>))}
-            <Route path="/" element={<MainPage shop={shops}/>}></Route>
-            <Route path="/login" element={<Login />}></Route>
-            <Route path="/register" element={<Register />}></Route>
+            <Route path="/" element={<MainPage shop={shops} />}></Route>
+            <Route path="/cart" element={<Cart food={sumWithInitial} />}></Route>
+            {shops.map((shop) => (<Route path={"/" + shop.id} element={<Shops food={shop.food} />}></Route>))}
+            {/* <Route path="/login" element={<Login />}></Route> */}
+            {/* <Route path="/register" element={<Register />}></Route> */}
           </Routes>
-        {/* <Popup /> */}
+          {/* <Popup /> */}
+          </main>
         </Router>
       </div>
     );
