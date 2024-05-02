@@ -7,7 +7,7 @@ const Shops = (props) => {
   return (
     <div>
         {/* <ul><FoodShops /></ul> */}
-        {props.food.map((food) => (<Food key={food.id} name={food.name} price={food.price}/>))}
+        {props.food.map((food) => (<Food key={food.id} name={food.name} price={food.price} image={food.image}/>))}  
     </div>
   )
 }

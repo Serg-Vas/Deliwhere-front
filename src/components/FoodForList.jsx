@@ -16,8 +16,11 @@ class FoodForList extends React.Component {
     render() {
         return (
             <div className = "food">
+                <img src="" alt="" />
                 <h2>{this.props.name}</h2>
-                <h3>{this.props.price}</h3>
+                <h3>{this.props.price}$</h3>
+                {/* <img src={this.props.image} alt="bimbimbambam" /> */}
+                <span dangerouslySetInnerHTML={{__html: this.props.image}}/>
                 <button onClick={()=>this.addToCart(this.props.name)}>Add to Cart</button>
             </div>
         )

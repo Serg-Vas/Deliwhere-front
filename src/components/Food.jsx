@@ -6,7 +6,7 @@ class Food extends React.Component {
     console.log(3, this.props);    //check
     return (
       <div>
-        <FoodList key={this.key} name={this.props.name} price={this.props.price}/>
+        <FoodList key={this.key} name={this.props.name} price={this.props.price} image={this.props.image}/>
       </div>
     )
   }
