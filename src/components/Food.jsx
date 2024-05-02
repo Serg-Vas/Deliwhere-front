@@ -1,12 +1,12 @@
 import React from 'react'
-import FoodList from './FoodList'
+import FoodForList from './FoodForList'
 
 class Food extends React.Component {
   render() {
     console.log(3, this.props);    //check
     return (
       <div>
-        <FoodList key={this.key} name={this.props.name} price={this.props.price} image={this.props.image}/>
+        <FoodForList key={this.key} name={this.props.name} price={this.props.price} image={this.props.image}/>
       </div>
     )
   }

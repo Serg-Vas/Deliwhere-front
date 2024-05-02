@@ -10,7 +10,7 @@ class FoodForList extends React.Component {
         let array = Array.from(food3)
         let food4 = JSON.stringify(array)
         localStorage.setItem(key, food4)
-        console.log(food4)
+        console.log(food4, "localStorage")
         // alert(name + " added to cart")
     }
     render() {
