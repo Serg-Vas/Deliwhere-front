@@ -1,13 +1,14 @@
 import React from 'react'
 import FoodShops from './FoodShops'
-import Food from './Food'
+import FoodForList from './FoodForList'
 // import 'D:\\work\\Food shop\\food\\src\\css\\Header.css';
 
 const Shops = (props) => {
+  console.log(3, props);
   return (
     <div>
         {/* <ul><FoodShops /></ul> */}
-        {props.food.map((food) => (<Food key={food.id} name={food.name} price={food.price} image={food.image}/>))}  
+        {props.food.map((food) => (<FoodForList key={food.id} name={food.name} price={food.price} image={food.image}/>))}  
     </div>
   )
 }
