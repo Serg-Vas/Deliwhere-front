@@ -11,21 +11,23 @@ function ChoosedFood(props) {
   // }
 
   function setDeleted() 
+  
   {
     const items = localStorage.getItem("food");
     if (items) {
       var itemsArray = JSON.parse(items)
-      var index = itemsArray.indexOf(props.name)
+      console.log("props.id:", props.id);
+      var index = itemsArray.findIndex(item => item.id === props.id)
       if (index !== -1) {
         itemsArray.splice(index, 1)
         localStorage.setItem("food", JSON.stringify(itemsArray))
         console.log(itemsArray, localStorage.getItem('food'), 'check')
         props.setOrdered([...itemsArray])
-        delete props.sum[props.name]
+        delete props.sum[props.id]
         props.setSum({...props.sum})
       }
       // alert(props.name + " removed from cart")
-      console.log(props.name + " removed from cart");
+      console.log(props.id + " removed from cart");
     }
     // else {
       // alert(props.name + " not found")
@@ -35,9 +37,10 @@ function ChoosedFood(props) {
     return (
       <div>
         <ul>
+        <span dangerouslySetInnerHTML={{__html: props.image}}/>
           <p>{props.name}</p>
           <button onClick={setDeleted}>Remove from cart</button>
-          <FoodAmount setSum={props.setSum} sum={props.sum} name={props.name} price={props.price}/>
+          <FoodAmount setSum={props.setSum} sum={props.sum} id={props.id} price={props.price}/>
           <p>{props.price}</p>
         </ul>
       </div>

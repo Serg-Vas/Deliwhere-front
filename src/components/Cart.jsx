@@ -6,9 +6,16 @@ import { useState, useEffect } from 'react';
 const Cart = (props) => {
   console.log(props, 'cart')
   const foods = localStorage.getItem('food')
+  console.log(foods)
   const order = JSON.parse(foods)   // const ordered = foods ? JSON.parse(foods) : [];
+  console.log(order)
   const [ordered, setOrdered] = useState(order)
-  const list = props.food.filter(item => ordered && ordered.includes(item.name))  //null check
+  const indeces = ordered && ordered.map(x => x.id)
+  console.log(ordered, props.food);
+  const list = props.food.filter(item => {
+    console.log(indeces.includes(item.id), item.id, item.name);
+    return indeces && indeces.includes(item.id)
+  })  //null check
   console.log(list.length, 'items')
 
   // function getItems(){
@@ -25,7 +32,7 @@ const Cart = (props) => {
 
   const [sum, setSum] = useState(0);
   let subSum0 = list.reduce(function (map, obj) {
-    map[obj.name] = 0;
+    map[obj.id] = 0;
     return map;
   }, {});
 
@@ -33,7 +40,7 @@ const Cart = (props) => {
   useEffect(() => {
     console.log(subSum, '- Has changed2')
     const sum2 = Object.values(subSum).reduce((sum, current) => sum + current, 0);
-    setSum(sum2);
+    setSum(sum2.toFixed(2));
   }, [subSum])
 
   console.log(subSum, 'subSum')
@@ -47,9 +54,9 @@ const Cart = (props) => {
       <figure>
         <img src="table.svg" alt="Description of the image" style={{ width: "80vw" }} />
         <figcaption>
-          {list.map((food) => (<ChoosedFood setOrdered={setOrdered} key={food.id} name={food.name} price={food.price} sum={subSum} setSum={setSubSum} />))}
+          {list.map((food) => (<ChoosedFood setOrdered={setOrdered} key={food.id} id={food.id} name={food.name} price={food.price} image={food.image} sum={subSum} setSum={setSubSum} />))}
         </figcaption>
-          <h3>Total price: {sum}</h3>
+          <h3>Total price: {sum}$</h3>
       </figure>
       {/* <h1>Cart</h1> */}
       {/* <h3>{localStorage.getItem("food").replace(/["\[\]]/g, '')}</h3> */}

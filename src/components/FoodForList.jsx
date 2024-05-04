@@ -1,11 +1,11 @@
 import React from 'react'
 
 class FoodForList extends React.Component {
-    addToCart(name) {
+    addToCart(id, name) {
         const key = "food"
         const food = localStorage.getItem(key) || "[]"
         let food2 = JSON.parse(food)
-        food2.push(name)
+        food2.push({ id, name });
         let food3 = new Set(food2)
         let array = Array.from(food3)
         let food4 = JSON.stringify(array)
@@ -14,15 +14,18 @@ class FoodForList extends React.Component {
         // alert(name + " added to cart")
     }
     render() {
+        const manipulatedSVG = this.props.image.replace('<svg ', '<svg height="160" ');
         return (
-            <div className = "food">
-                <img src="" alt="" />
-                <h2>{this.props.name}</h2>
-                <h3>{this.props.price}$</h3>
-                {/* <img src={this.props.image} alt="bimbimbambam" /> */}
-                <span dangerouslySetInnerHTML={{__html: this.props.image}}/>
-                <button onClick={()=>this.addToCart(this.props.name)}>Add to Cart</button>
-            </div>
+            <figure className = "food-container">
+                <img src="foodBackground.svg" style={{width: '120%', marginRight: '20%'}}/>
+                <figcaption className='food-item'>
+                    <span className = 'food-img' dangerouslySetInnerHTML={{__html: manipulatedSVG}}/>
+                    <h3>{this.props.name}</h3>
+                    <h4>{this.props.price}$</h4>
+                    {/* <img src={this.props.image} alt="bimbimbambam" /> */}
+                    <button onClick={()=>this.addToCart(this.props.id, this.props.name)}>Add to Cart</button>
+                </figcaption>
+            </figure>
         )
     }
 }

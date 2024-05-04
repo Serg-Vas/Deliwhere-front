@@ -4,7 +4,7 @@ const FoodAmount = (props) => {
     const [click, setClick] = useState(1)
     useEffect(() => {
       console.log(click, '- Has changed')
-      props.sum[props.name] = click*props.price
+      props.sum[props.id] = click*props.price
       props.setSum({...props.sum})
   },[click])
   return (

@@ -6,9 +6,9 @@ import FoodForList from './FoodForList'
 const Shops = (props) => {
   console.log(3, props);
   return (
-    <div>
+    <div className='food'>
         {/* <ul><FoodShops /></ul> */}
-        {props.food.map((food) => (<FoodForList key={food.id} name={food.name} price={food.price} image={food.image}/>))}  
+        {props.food.map((food) => (<FoodForList key={food.id} id={food.id} name={food.name} price={food.price} image={food.image}/>))}  
     </div>
   )
 }

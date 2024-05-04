@@ -57,13 +57,14 @@ li {
     align-items: center;
 }
 
-.Header.restaurants figure {
+figure {
     position: relative;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
+    margin-right: 5%;
     display: inline-block;
 }
 
-.Header.restaurants figcaption {
+figcaption {
     position: absolute;
     top: 0;
     left: 0;
@@ -77,7 +78,7 @@ li {
     align-content: center
 }
 
-.restaurant-item{
+.restaurant-item, .food-item{
     position: absolute;
     top: 50%;
     left: 50%;
@@ -99,7 +100,24 @@ li {
     padding: 0;
 }
 
-.board{}
+.food{
+    position: relative;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.food-item{
+    flex-direction: column;
+    top: 60%;
+    left: 60%;
+}
+
+.food-img{
+    /* height: 100px; */
+}
 
 .Header.restaurants div img{
     width: 17.5vw;
