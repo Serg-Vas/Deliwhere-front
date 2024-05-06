@@ -6,10 +6,13 @@ import FoodForList from './FoodForList'
 const Shops = (props) => {
   console.log(3, props);
   return (
-    <div className='food'>
+    <>
+      <span className='shop-icon' dangerouslySetInnerHTML={{ __html: props.logo }} />
+      <div className='food'>
         {/* <ul><FoodShops /></ul> */}
-        {props.food.map((food) => (<FoodForList key={food.id} id={food.id} name={food.name} price={food.price} image={food.image}/>))}  
-    </div>
+        {props.food.map((food) => (<FoodForList key={food.id} id={food.id} name={food.name} price={food.price} image={food.image} />))}
+      </div>
+    </>
   )
 }
 

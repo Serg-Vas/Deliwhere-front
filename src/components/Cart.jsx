@@ -2,6 +2,7 @@ import React from 'react'
 import ChoosedFood from './ChoosedFood';
 import Register from './Register';
 import { useState, useEffect } from 'react';
+import Confirm from './Confirm';
 
 const Cart = (props) => {
   console.log(props, 'cart')
@@ -11,19 +12,17 @@ const Cart = (props) => {
   console.log(order)
   const [ordered, setOrdered] = useState(order)
   const indeces = ordered && ordered.map(x => x.id)
-  console.log(ordered, props.food);
-  const list = props.food.filter(item => {
-    console.log(indeces.includes(item.id), item.id, item.name);
-    return indeces && indeces.includes(item.id)
-  })  //null check
-  console.log(list.length, 'items')
-
-  // function getItems(){
-  //   const key = "food"
-  //       const food = localStorage.getItem(key) || "[]"
-  //       return JSON.parse(food)
-  // }
-
+  console.log(ordered, props.shops);
+  const list = props.shops.reduce((acc, shop) => {
+    shop.food.forEach(food => {
+      if (ordered.find(item => item.id === food.id)) {
+        acc.push({ ...food, logo: shop.logo }); // Include logo information
+      }
+    });
+    return acc;
+  }, []);
+  console.log(list, 'items')
+  
   function test() {
     const store = localStorage.getItem("food")
     console.log(localStorage.getItem("food"), store, JSON.stringify(new Set(store)));
@@ -46,22 +45,21 @@ const Cart = (props) => {
   console.log(subSum, 'subSum')
 
   return (
-    <section className="Header restaurants">
-      <nav className='board' style={{ position: 'relative' }}>
+    <section className="Header restaurants board">
+      <nav className='' style={{ position: 'relative' }}>
         <img src="sighboard.svg" style={{ width: "25vw" }} />
         <h1 className='board-text'>Cart</h1>
       </nav>
-      <figure>
-        <img src="table.svg" alt="Description of the image" style={{ width: "80vw" }} />
-        <figcaption>
-          {list.map((food) => (<ChoosedFood setOrdered={setOrdered} key={food.id} id={food.id} name={food.name} price={food.price} image={food.image} sum={subSum} setSum={setSubSum} />))}
-        </figcaption>
-          <h3>Total price: {sum}$</h3>
+      <img src="table.svg" alt="Description of the image" style={{ width: "95vw" }} />
+      
+      <figure className='choosedfood-container'>
+        {/* <figcaption> */}
+          {list.map((food) => (<ChoosedFood setOrdered={setOrdered} key={food.id} id={food.id} name={food.name} price={food.price} image={food.image} logo={food.logo} sum={subSum} setSum={setSubSum} />))}
+        {/* </figcaption> */}
       </figure>
-      {/* <h1>Cart</h1> */}
-      {/* <h3>{localStorage.getItem("food").replace(/["\[\]]/g, '')}</h3> */}
-      {/* <button onClick={test}>Submit</button> */}
-      {/* <Register subSum={subSum} sum={sum}/> */}
+          <h3>Total price: {sum}$</h3>
+          <button onClick={<Confirm/>}>Submit</button>
+      {/* <button onClick={test}>Submit</button> DO NOT PRESS!!! */} 
     </section>
   )
 }

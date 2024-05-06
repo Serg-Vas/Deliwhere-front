@@ -2,17 +2,9 @@ import React from 'react';
 import FoodAmount from './FoodAmount';
 
 function ChoosedFood(props) {
-  console.log(props, localStorage.getItem("food"),'choosed');
+  console.log(props, localStorage.getItem("food"), 'choosed');
 
-  // function getItems(){
-  //   const key = "food"
-  //   const food = localStorage.getItem(key) || "[]"
-  //   return JSON.parse(food)
-  // }
-
-  function setDeleted() 
-  
-  {
+  function setDeleted() {
     const items = localStorage.getItem("food");
     if (items) {
       var itemsArray = JSON.parse(items)
@@ -24,26 +16,28 @@ function ChoosedFood(props) {
         console.log(itemsArray, localStorage.getItem('food'), 'check')
         props.setOrdered([...itemsArray])
         delete props.sum[props.id]
-        props.setSum({...props.sum})
+        props.setSum({ ...props.sum })
       }
       // alert(props.name + " removed from cart")
       console.log(props.id + " removed from cart");
     }
-    // else {
-      // alert(props.name + " not found")
-    // }
   }
-  
-    return (
-      <div>
-        <ul>
-        <span dangerouslySetInnerHTML={{__html: props.image}}/>
-          <p>{props.name}</p>
+  const manipulatedFoodSVG = props.image.replace('<svg ', '<svg height="120" ');
+  const manipulatedLogoSVG = props.logo.replace('<svg ', '<svg height="70" ');
+  return (
+    <figure>
+      <img src="foodBackground.svg" style={{ width: '100%' }} />
+      <figcaption className='choosedfood-item'>
+        <span dangerouslySetInnerHTML={{ __html: manipulatedLogoSVG }} style={{position:"absolute", top:"15%", left:"57%"}}/>
+        <span dangerouslySetInnerHTML={{ __html: manipulatedFoodSVG }} />
+        <h4>{props.name}</h4>
+        <h5>{props.price}$</h5>
+        <div>
           <button onClick={setDeleted}>Remove from cart</button>
-          <FoodAmount setSum={props.setSum} sum={props.sum} id={props.id} price={props.price}/>
-          <p>{props.price}</p>
-        </ul>
-      </div>
+          <FoodAmount setSum={props.setSum} sum={props.sum} id={props.id} price={props.price} />
+        </div>
+      </figcaption>
+    </figure>
   );
 };
 

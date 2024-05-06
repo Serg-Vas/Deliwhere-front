@@ -17,12 +17,11 @@ class FoodForList extends React.Component {
         const manipulatedSVG = this.props.image.replace('<svg ', '<svg height="160" ');
         return (
             <figure className = "food-container">
-                <img src="foodBackground.svg" style={{width: '120%', marginRight: '20%'}}/>
+                <img src="foodBackground.svg" style={{width: '120%'}}/>
                 <figcaption className='food-item'>
                     <span className = 'food-img' dangerouslySetInnerHTML={{__html: manipulatedSVG}}/>
                     <h3>{this.props.name}</h3>
                     <h4>{this.props.price}$</h4>
-                    {/* <img src={this.props.image} alt="bimbimbambam" /> */}
                     <button onClick={()=>this.addToCart(this.props.id, this.props.name)}>Add to Cart</button>
                 </figcaption>
             </figure>

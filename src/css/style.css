@@ -60,7 +60,7 @@ li {
 figure {
     position: relative;
     /* margin-bottom: 20px; */
-    margin-right: 5%;
+    /* margin-right: 5%; */
     display: inline-block;
 }
 
@@ -78,7 +78,7 @@ figcaption {
     align-content: center
 }
 
-.restaurant-item, .food-item{
+.restaurant-item, .food-item, .choosedfood-item{
     position: absolute;
     top: 50%;
     left: 50%;
@@ -106,7 +106,8 @@ figcaption {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
 }
 
 .food-item{
@@ -115,9 +116,34 @@ figcaption {
     left: 60%;
 }
 
-.food-img{
-    /* height: 100px; */
+.choosedfood-item{
+    flex-direction: column;
+    padding-top: 20%;
 }
+
+.food-container{
+    margin-right: 4%;
+}
+
+.shop-icon{
+    display: flex;
+    justify-content: center;
+    height: 175px
+}
+
+.choosedfood-container{
+    position: absolute;
+    display: inline-block;
+    top: 30vh;
+}
+/* 
+.board{
+    background-image: url('table.svg');
+    background-repeat: no-repeat;
+    background-size: 94vw;
+    background-position: 3vw 15vh;
+    height: 200vh;
+} */
 
 .Header.restaurants div img{
     width: 17.5vw;

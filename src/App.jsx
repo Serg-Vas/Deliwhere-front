@@ -135,8 +135,8 @@ class App extends React.Component {
           <main>
           <Routes>
             <Route path="/" element={<MainPage shop={shops} />}></Route>
-            <Route path="/cart" element={<Cart food={sumWithInitial} />}></Route>
-            {shops.map((shop) => (<Route path={"/" + shop.id} element={<Shops food={shop.food} />}></Route>))}
+            <Route path="/cart" element={<Cart shops={shops}/>}></Route>
+            {shops.map((shop) => (<Route path={"/" + shop.id} element={<Shops food={shop.food} logo={shop.logo}/>}></Route>))}
             {/* <Route path="/login" element={<Login />}></Route> */}
             {/* <Route path="/register" element={<Register />}></Route> */}
           </Routes>
