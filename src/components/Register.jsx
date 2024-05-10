@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getUsers, createUser, createCart } from './API';
+import { getUsers, createUser } from './API';
 
 const Register = ({onAuthNameChange, onLogin}) => { {/*props ???*/}
   const [showModal, setShowModal] = useState(false);

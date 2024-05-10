@@ -4,6 +4,7 @@ const API_URL = 'http://localhost:3000';
 const API_URL2 = 'http://localhost/DeliveryBack/InsertUser.php';
 const API_URL3 = 'http://localhost/DeliveryBack/CheckUser.php';
 const API_URL4 = 'http://localhost/DeliveryBack/Token.php';
+const API_URL5 = 'http://localhost/DeliveryBack/CreateOrder.php';
 
 export const getToken = async (username, password) => {
   const response = await axios.post(API_URL4, {name: username, password});
@@ -26,7 +27,12 @@ export const createUser = async (user) => {
   }
 };
 
-export const createCart = async (cart) => {
-    const response = await axios.post(`${API_URL}/cart`, cart);
+export const createOrder = async (order) => {
+  try {
+    const response = await axios.post(`${API_URL5}/orders`, order);
+    console.log(response.data);
     return response.data;
+  } catch (error) {
+    return error;
+  }
 };

@@ -1,11 +1,12 @@
 import React from 'react'
 import ChoosedFood from './ChoosedFood';
-import Register from './Register';
 import { useState, useEffect } from 'react';
 import Confirm from './Confirm';
 
 const Cart = (props) => {
   console.log(props, 'cart')
+  console.log(props.clientName);
+  const clientName = props.clientName
   const foods = localStorage.getItem('food')
   console.log(foods)
   const order = JSON.parse(foods)   // const ordered = foods ? JSON.parse(foods) : [];
@@ -58,8 +59,8 @@ const Cart = (props) => {
         {/* </figcaption> */}
       </figure>
           <h3>Total price: {sum}$</h3>
-          <button onClick={<Confirm/>}>Submit</button>
-      {/* <button onClick={test}>Submit</button> DO NOT PRESS!!! */} 
+          {<Confirm clientName={clientName} totalOrderPrice={sum} totalFoodPrice={subSum} foodItems={list} />}
+      {/* <button onClick={test}>Submit</button> DO NOT PRESS!!!  */}
     </section>
   )
 }
