@@ -129,7 +129,7 @@ class App extends React.Component {
               <Register onAuthNameChange={this.handleAuthNameChange}/>
             <p>{this.state.authName}</p> */}
             <div>
-              {/* <Token /> */}
+              <Token />
             </div>
           </header>
           <main>

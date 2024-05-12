@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { createOrder } from './API';
 
-const Confirm = ({ clientName, totalOrderPrice, totalFoodPrice, foodItems, deliveryLocation, cardInfo, onClose }) => {
+const Confirm = ({ clientName, totalOrderPrice, totalFoodPrice, foodItems, deliveryLocation, cardInfo, localStorageData, onClose }) => {
   const [confirmed, setConfirmed] = useState(false);
   const [inputValue, setInputValue] = useState(clientName); // Initialize input value with clientName prop
+console.log(foodItems);
+console.log(localStorageData);
 
   useEffect(() => {
     // Update inputValue when clientName prop changes
@@ -19,8 +21,6 @@ const Confirm = ({ clientName, totalOrderPrice, totalFoodPrice, foodItems, deliv
     const fetchOrder = async () => {
       const usersData = await createOrder(formJSON);
       console.log(usersData, "1234");
-      // const newAuthName = formJSON.name;
-      // usersData.name === undefined ? ((() => {onLogin();onAuthNameChange(newAuthName);})()) : console.log("Не удалось создать аккаунт");
     };
     fetchOrder();
     // setConfirmed(true);  
@@ -73,7 +73,7 @@ const Confirm = ({ clientName, totalOrderPrice, totalFoodPrice, foodItems, deliv
                     {foodItems.map((item, index) => (
                       <li key={index}>
                         {item.name} - ${totalFoodPrice[item.id]}
-                        <input type="hidden" name={`foodItems[${item.id}]`} value={totalFoodPrice[item.id]} />
+                        <input type="hidden" name='foodItems' value={localStorageData} />
                       </li>
                     ))}
                   </ul>

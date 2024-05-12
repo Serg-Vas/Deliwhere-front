@@ -1,34 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import { getUsers, createUser } from './API';
+import axios from 'axios';
 
 const Register = ({onAuthNameChange, onLogin}) => { {/*props ???*/}
   const [showModal, setShowModal] = useState(false);
+  const [user, setUser] = useState(null);
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
     const data = new FormData(e.target);
     console.log(data, e.target, "1234");
     const formJSON = Object.fromEntries(data.entries());
-    // console.log(formJSON, props.subSum);
-    // let simplehash = props.subSum;
-    // const foods = [];
-    // for (var key in simplehash) {
-    //   if (simplehash.hasOwnProperty(key)) {
-    //     foods.push({ name: key, price: simplehash[key] });
-    //   }
-    // }
-    // formJSON.food = foods;
     console.log(formJSON, 'formJSON');
     const fetchCart = async () => {
       const usersData = await createUser(formJSON); //data
       console.log(usersData, "1234");
       const newAuthName = formJSON.name;
-      usersData.name === undefined ? ((() => {onLogin();onAuthNameChange(newAuthName);})()) : console.log("Не удалось создать аккаунт");
+      // usersData === undefined ? ((() => {onLogin();onAuthNameChange(newAuthName);})()) : console.log("Не удалось создать аккаунт");
+      setUser(usersData)
+      // try {
+      //   const response = await axios.post('http://localhost/DeliveryBack/generateToken.php', usersData);
+      //   return response;
+      // } catch (error) {
+      //   return error;
+      // }
+      // return usersData
     };
+    // const encodeUserData = async (usersData) => {
+    // }
     fetchCart();
+    console.log(user);
+    // encodeUserData(usersData);
     setShowModal(false);
   };
-
+  
   return (
     <div>
         <button

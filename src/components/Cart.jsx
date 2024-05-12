@@ -59,7 +59,7 @@ const Cart = (props) => {
         {/* </figcaption> */}
       </figure>
           <h3>Total price: {sum}$</h3>
-          {<Confirm clientName={clientName} totalOrderPrice={sum} totalFoodPrice={subSum} foodItems={list} />}
+          {<Confirm clientName={clientName} totalOrderPrice={sum} totalFoodPrice={subSum} foodItems={list} localStorageData={localStorage.getItem('food')}/>}
       {/* <button onClick={test}>Submit</button> DO NOT PRESS!!!  */}
     </section>
   )
