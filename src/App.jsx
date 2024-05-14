@@ -7,6 +7,8 @@ import Register from './components/Register';
 import Login from './components/Login';
 import Logout from './components/Logout';
 import Token from './components/Token';
+import { decodeJWT } from './components/API';
+import axios from 'axios';
 // import axios from 'axios';
 
 const baseUrl = 'https://reqres.in/api/unknown/1'
@@ -17,6 +19,7 @@ class App extends React.Component {
     this.state = {
       authName: '',
       isLoggedIn: false,
+      token: '',
       shops: [
         //     {
         //     "id": 1,
@@ -64,20 +67,63 @@ class App extends React.Component {
     }
   }
 
-  handleLogin = () => {
-    this.setState({ isLoggedIn: true });
-  };
+  // handleLogin = () => {
+  //   this.setState({ isLoggedIn: true });
+  //   this.saveAuthInfo(this.state.token, true);
+  // };
 
   handleLogout = () => {
     this.setState({ isLoggedIn: false });
-    this.setState({ authName: '' });
+    this.setState({ authName: '' }); 
+    const key = "token"
+    console.log(localStorage.getItem(key));
+    localStorage.removeItem(key); 
+    console.log(localStorage.getItem(key));
+    this.saveAuthInfo('', false);
   };
 
   handleAuthNameChange = (newAuthName) => {
-    this.setState({ authName: newAuthName });
+    // this.setState({ authName: newAuthName });
   };
 
-  componentDidMount() {
+  handleToken = (token) => {
+    // Decode the JWT token
+    const decodedToken = decodeJWT(token);
+    console.log(decodedToken);
+    // Extract relevant information from the decoded token
+    const { name } = decodedToken;
+    console.log(name);
+    // Update state or perform any other necessary action with the decoded token
+    this.setState({
+      token: token,
+      authName: name, // Assuming username is part of the JWT payload
+    });
+    // Save token and authentication status
+    this.saveAuthInfo(token, true);
+  }
+
+  saveAuthInfo = (token, isLoggedIn) => {
+    const key = "token"
+    const tokenItem = localStorage.getItem(key) || token
+    console.log(tokenItem);
+    localStorage.setItem(key, tokenItem)
+    console.log(tokenItem);
+    // const tokenKill = localStorage.getItem(key)
+    // console.log(localStorage.getItem(key), store, JSON.stringify(new Set(tokenKill)));
+    // localStorage.removeItem(key);
+
+  }
+  
+  handleHeaders = async () => {
+    const response = await fetch("http://localhost/DeliveryBack/getInfo.php", { //https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+      headers: {
+          'Authorization': localStorage.getItem("token"),
+      }
+  })
+    console.log(await response.text());
+  }
+
+  async componentDidMount() {
     const url = "http://localhost/DeliveryBack/SelectRestaurants.php"
     // const url = "/shops.json";
     fetch(url)
@@ -96,9 +142,14 @@ class App extends React.Component {
   }
 
   render() {
+    // localStorage.clear()
     const { isLoggedIn } = this.state;
     const { shops } = this.state;
+    const {token} = this.state;
+    // this.saveAuthInfo(token, isLoggedIn)
     console.log(shops)
+    console.log(token);
+    console.log(isLoggedIn);
     const sumWithInitial = shops.reduce(
       (accumulator, currentValue) => [...accumulator, ...currentValue.food],
       []
@@ -117,10 +168,24 @@ class App extends React.Component {
               </div>
               {shops.length > 0 && shops.map((shop) => (<li><h1><Link to={"/" + shop.id}>{shop.name}</Link></h1></li>))}
               <div className='login'>
-                {!isLoggedIn && <Login onLogin={this.handleLogin} onAuthNameChange={this.handleAuthNameChange} />}
-                {!isLoggedIn && <Register onLogin={this.handleLogin} onAuthNameChange={this.handleAuthNameChange} />}
-                {isLoggedIn && <Logout onLogout={this.handleLogout} />}
+              {!localStorage.getItem('token') && (
+                <>
+                  <Login
+                    // onLogin={this.handleLogin}
+                    onAuthNameChange={this.handleAuthNameChange}
+                    getToken={this.handleToken}
+                  />
+                  <Register
+                    // onLogin={this.handleLogin}
+                    onAuthNameChange={this.handleAuthNameChange}
+                    getToken={this.handleToken}
+                  />
+                </>
+              )}
+              {localStorage.getItem('token') && <Logout onLogout={this.handleLogout} />}
                 <p>{this.state.authName}</p>
+                {/* <p>{this.state.token}</p> */}
+                <button type="button" onClick={this.handleHeaders}>Send Headers</button>
               </div>
             </nav>
             {/* <Link to="/login">Login</Link> */}
@@ -134,7 +199,7 @@ class App extends React.Component {
           </header>
           <main>
           <Routes>
-            <Route path="/" element={<MainPage shop={shops} />}></Route>
+            <Route path="/" element={<MainPage shop={shops} token={token}/>}></Route>
             <Route path="/cart" element={<Cart shops={shops} clientName={this.state.authName}/>}></Route>
             {shops.map((shop) => (<Route path={"/" + shop.id} element={<Shops food={shop.food} logo={shop.logo}/>}></Route>))}
             {/* <Route path="/login" element={<Login />}></Route> */}

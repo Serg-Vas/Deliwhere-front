@@ -1,41 +1,38 @@
 import React, { useState } from 'react';
-import { getToken, getUsers } from './API';
-// import OnAuthSuccess from './OnAuthSuccess';
-// import jwt from 'jsonwebtoken';
+import { getToken, getUsers, createJWT } from './API';
 
-const Login = ({onAuthNameChange, onLogin}) => {
+const Login = ({onAuthNameChange, onLogin, getToken}) => {
   const [username, setUsername] = useState('Alex3');
   const [password, setPassword] = useState('password');
   const [showModal, setShowModal] = useState(false);
   const [token, setToken] = useState(null);
 
   const handleLogin = async () => {
-    try {
-      const response = await getUsers(username, password);
-      // const response1 = await getToken(username, password);
-      console.log(response);
-      // console.log(response1);
-      if (response.status === 200) {
-        // Successful login
-        console.log('User authenticated successfully.');
-        console.log(username);
-        onAuthNameChange(username); // Вызываем колбэк для изменения authName в App.jsx
-        onLogin()
-        console.log(onLogin());
-      } else {
-        // Failed login
-        console.error('Invalid username or password.');
-        // Display the modal
-        setShowModal(true);
-      }
-      // if (response1.status === 200) {
-      //   console.log(response1);
-      // }
-      // else{
-      //   console.log("error");
-      // }
-    } catch (error) {
-      console.error('Error during login:', error);
+    const userData = await getUsers(username, password);
+    // const response1 = await getToken(username, password);
+    console.log(userData);
+    // console.log(response1);
+    if (userData.status === 200) {
+      // Successful login
+      console.log('User authenticated successfully.');
+      // console.log(username);
+      // onAuthNameChange(username); // Вызываем колбэк для изменения authName в App.jsx
+      const token = await createJWT(userData.data)
+      console.log(token, userData.data);
+      const key = "token"
+      const tokenItem = localStorage.getItem(key) || token
+      console.log(tokenItem);
+      localStorage.setItem(key, tokenItem)
+      console.log(tokenItem);
+      // onLogin()
+      // console.log(onLogin());
+      getToken(token)
+
+    } else {
+      // Failed login
+      console.error('Invalid username or password.');
+      // Display the modal
+      setShowModal(true);
     }
   };
 

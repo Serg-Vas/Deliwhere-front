@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { getUsers, createUser } from './API';
+import { getUsers, createUser, createJWT } from './API';
 import axios from 'axios';
 
-const Register = ({onAuthNameChange, onLogin}) => { {/*props ???*/}
+const Register = ({onAuthNameChange, onLogin, getToken}) => { {/*props ???*/}
   const [showModal, setShowModal] = useState(false);
   const [user, setUser] = useState(null);
 
@@ -16,24 +16,25 @@ const Register = ({onAuthNameChange, onLogin}) => { {/*props ???*/}
       const usersData = await createUser(formJSON); //data
       console.log(usersData, "1234");
       const newAuthName = formJSON.name;
-      // usersData === undefined ? ((() => {onLogin();onAuthNameChange(newAuthName);})()) : console.log("Не удалось создать аккаунт");
-      setUser(usersData)
-      // try {
-      //   const response = await axios.post('http://localhost/DeliveryBack/generateToken.php', usersData);
-      //   return response;
-      // } catch (error) {
-      //   return error;
-      // }
-      // return usersData
+      usersData.name !== "AxiosError" ? ((() => {onAuthNameChange(newAuthName);})()) : console.log("Не удалось создать аккаунт");
+      // setUser(usersData)
+      
+    const token = await createJWT(usersData)
+    console.log(token);
+    getToken(token)
     };
     // const encodeUserData = async (usersData) => {
     // }
+    
     fetchCart();
-    console.log(user);
     // encodeUserData(usersData);
     setShowModal(false);
   };
-  
+
+  // useEffect(() => {
+  //   console.log(user);
+  // }, [user])
+
   return (
     <div>
         <button
