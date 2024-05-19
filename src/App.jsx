@@ -19,6 +19,7 @@ class App extends React.Component {
     this.state = {
       authName: '',
       isLoggedIn: false,
+      isAuth: false,
       token: '',
       shops: [
         //     {
@@ -75,10 +76,15 @@ class App extends React.Component {
   handleLogout = () => {
     this.setState({ isLoggedIn: false });
     this.setState({ authName: '' }); 
-    const key = "token"
-    console.log(localStorage.getItem(key));
-    localStorage.removeItem(key); 
-    console.log(localStorage.getItem(key));
+    const keyToken = "token"
+    console.log(localStorage.getItem(keyToken));
+    localStorage.removeItem(keyToken); 
+    console.log(localStorage.getItem(keyToken));
+
+    const keyUser = "userData"
+    console.log(localStorage.getItem(keyUser));
+    localStorage.removeItem(keyUser); 
+    console.log(localStorage.getItem(keyUser));
     this.saveAuthInfo('', false);
   };
 
@@ -86,20 +92,29 @@ class App extends React.Component {
     // this.setState({ authName: newAuthName });
   };
 
-  handleToken = (token) => {
+  handleToken = async (token) => {
     // Decode the JWT token
-    const decodedToken = decodeJWT(token);
-    console.log(decodedToken);
-    // Extract relevant information from the decoded token
-    const { name } = decodedToken;
-    console.log(name);
-    // Update state or perform any other necessary action with the decoded token
-    this.setState({
-      token: token,
-      authName: name, // Assuming username is part of the JWT payload
-    });
-    // Save token and authentication status
-    this.saveAuthInfo(token, true);
+    console.log(token);
+    const decodedToken = await decodeJWT(token);
+    console.log(decodedToken.data);
+
+    // if (condition) {
+      
+    // }
+    const key = "userData"
+        // const userData = localStorage.getItem(key) || decodedToken.data
+        // console.log(userData);
+        localStorage.setItem(key, JSON.stringify(decodedToken.data))
+        console.log(localStorage.getItem(key));
+        const userData = JSON.parse(localStorage.getItem(key));
+        console.log("User Data:", userData);
+        console.log("User Data Name:", userData.name);
+        this.setState({
+          token: token,
+          authName: userData.name,
+        });
+        // Save token and authentication status
+        this.saveAuthInfo(token, true);
   }
 
   saveAuthInfo = (token, isLoggedIn) => {
@@ -111,7 +126,6 @@ class App extends React.Component {
     // const tokenKill = localStorage.getItem(key)
     // console.log(localStorage.getItem(key), store, JSON.stringify(new Set(tokenKill)));
     // localStorage.removeItem(key);
-
   }
   
   handleHeaders = async () => {
@@ -120,7 +134,10 @@ class App extends React.Component {
           'Authorization': localStorage.getItem("token"),
       }
   })
-    console.log(await response.text());
+    // console.log(await response.text());
+    const data = await response.json(); // Parse JSON response
+    console.log(data.name);
+    return data
   }
 
   async componentDidMount() {
@@ -139,6 +156,22 @@ class App extends React.Component {
         console.error('Помилка при завантаженні JSON-файлу:', error);
         // Обробка помилки
       });
+      
+      try {
+          const key = "userData"
+          const userData = JSON.parse(localStorage.getItem(key));
+          console.log(userData.name);
+          this.setState({
+            authName: userData.name, // Assuming username is part of the JWT payload
+            isAuth: true,
+          });
+          // Save token and authentication status
+          this.saveAuthInfo(this.state.token, true);
+        // localStorage.clear()
+        // console.log(userData);
+      } catch (error) {
+        console.log(error);
+      }
   }
 
   render() {

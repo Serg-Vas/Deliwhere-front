@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { createOrder } from './API';
 
-const Confirm = ({ clientName, totalOrderPrice, totalFoodPrice, foodItems, deliveryLocation, cardInfo, localStorageData, onClose }) => {
+const Confirm = ({ clientData, totalOrderPrice, totalFoodPrice, foodItems, cardInfo, localStorageData, onClose }) => {
   const [confirmed, setConfirmed] = useState(false);
-  const [inputValue, setInputValue] = useState(clientName); // Initialize input value with clientName prop
+  const [clientName, setClientName] = useState(clientData);
+  const [deliveryLocation, setDeliveryLocation] = useState(clientData);
 console.log(foodItems);
 console.log(localStorageData);
 
   useEffect(() => {
-    // Update inputValue when clientName prop changes
-    setInputValue(clientName);
-  }, [clientName]);
+    setClientName(clientData.name);
+    setDeliveryLocation(clientData.address)
+  }, [clientData]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -57,14 +58,14 @@ console.log(localStorageData);
                 </div>
                 <div className="modal-body">
                   <label htmlFor="client">
-                    Your Info:
+                    Your Name:
                     <input
                       type="text"
                       id="client"
                       name="client"
                       required
-                      value={inputValue}
-                      onChange={(e) => setInputValue(e.target.value)}
+                      value={clientName}
+                      onChange={(e) => setClientName(e.target.value)}
                     />
                   </label>
                   {/* <label htmlFor="foodItems"> */}
@@ -84,8 +85,8 @@ console.log(localStorageData);
                       <input type="hidden" id="totalPrice" name="totalPrice" value={totalOrderPrice} />
                   {/* </label> */}
                   <label htmlFor="deliveryAddress">
-                    <p>Delivery Location: {deliveryLocation}</p>
-                    <input type="text" id='deliveryAddress' name='deliveryAddress' required />
+                    <p>Delivery Location:</p>
+                    <input type="text" id='deliveryAddress' name='deliveryAddress' required value={deliveryLocation} onChange={(e) => setDeliveryLocation(e.target.value)}/>
                   </label>
                   <p>Card Info: {cardInfo}</p>
                   <label htmlFor="comment">

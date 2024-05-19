@@ -1,3 +1,5 @@
 http://win.test/
 # Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJleGFtcGxlX3VzZXIifQ.Mp0zCxCm2JFpJ2hovilvU3z_an7OZdBnSV_oEKvVrqk
 
+###
+http://localhost/DeliveryBack/getInfo.php

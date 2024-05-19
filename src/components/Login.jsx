@@ -16,7 +16,7 @@ const Login = ({onAuthNameChange, onLogin, getToken}) => {
       // Successful login
       console.log('User authenticated successfully.');
       // console.log(username);
-      // onAuthNameChange(username); // Вызываем колбэк для изменения authName в App.jsx
+      // onAuthNameChange(); // Вызываем колбэк для изменения authName в App.jsx
       const token = await createJWT(userData.data)
       console.log(token, userData.data);
       const key = "token"

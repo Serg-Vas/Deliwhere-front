@@ -46,9 +46,13 @@ export const createJWT = async(userData) =>{
   }
 }
 
-export const decodeJWT = async(token) =>{
+export const decodeJWT = async() =>{
   try {
-    const response = await axios.post('http://localhost/DeliveryBack/getToken.php', token);
+    const response = await axios.post('http://localhost/DeliveryBack/getInfo.php', {}, {
+      headers: {
+      'Authorization': localStorage.getItem("token"),
+      }
+  });
     return response;
   } catch (error) {
     return error;
