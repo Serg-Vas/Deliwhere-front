@@ -2,6 +2,7 @@ import React from 'react'
 import ChoosedFood from './ChoosedFood';
 import { useState, useEffect } from 'react';
 import Confirm from './Confirm';
+import Map from './Map';
 
 const Cart = (props) => {
   console.log(props, 'cart')
@@ -50,6 +51,8 @@ const Cart = (props) => {
       <nav className='' style={{ position: 'relative' }}>
         <img src="sighboard.svg" style={{ width: "25vw" }} />
         <h1 className='board-text'>Cart</h1>
+        {/* <Map /> */}
+
       </nav>
       <img src="table.svg" alt="Description of the image" style={{ width: "95vw" }} />
       
@@ -59,8 +62,13 @@ const Cart = (props) => {
         {/* </figcaption> */}
       </figure>
           <h3>Total price: {sum}$</h3>
+
           {<Confirm clientData={JSON.parse(localStorage.getItem('userData'))} totalOrderPrice={sum} totalFoodPrice={subSum} foodItems={list} localStorageData={localStorage.getItem('food')}/>}
       {/* <button onClick={test}>Submit</button> DO NOT PRESS!!!  */}
+          {/* <nav style={{ width: "25vw" }}>
+          <Map />
+          </nav> */}
+
     </section>
   )
 }
