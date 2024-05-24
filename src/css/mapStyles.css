@@ -56,14 +56,11 @@
   #pac-container {
     padding-bottom: 12px;
     margin-right: 12px;
-    /* z-index: 1050 !important;  */
-    /* position: relative !important; */
-
   }
-
+  
   .pac-container{
-    border: 1px solid red;
-    z-index: 1050 !important;
+    /* border: 1px solid red; */
+    z-index: 10500 !important;
   }
   
   .pac-controls {
@@ -87,9 +84,7 @@
     padding: 0 11px 0 13px;
     text-overflow: ellipsis;
     width: 400px;
-  position: relative !important;
-    /* z-index: 1051;
-    position: relative !important; */
+    position: relative !important;
   }
   
   #pac-input:focus {
@@ -105,4 +100,10 @@
     padding: 6px 12px;
   }
   
-  
+  button.gm-svpc{
+    visibility: hidden;
+  }
+
+  .gm-fullscreen-control{
+    visibility: hidden;
+  }
