@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import "D:\\work\\Food shop\\front4 copy\\src\\css\\mapStyles.css";
 
-const Map = () => {
+const Map = ({ onAddressUpdate }) => {
   const [deliveryLocation, setDeliveryLocation] = useState(); // clientData
   const [coordinates, setCoordinates] = useState({ lat: 0, lng: 0 });
 
@@ -76,6 +76,9 @@ const Map = () => {
           localStorage.setItem('userData', JSON.stringify(userData));
           setDeliveryLocation(userData.address);
 
+          // Call the onAddressUpdate function to update the address in the parent component
+          onAddressUpdate(userData.address);
+
           infowindow.open(map, marker);
         } else {
           window.alert(`No details available for input: '${place.name}'`);
@@ -94,7 +97,7 @@ const Map = () => {
       const userData = JSON.parse(localStorage.getItem("userData"));
       const userCoordinates = JSON.parse(localStorage.getItem("coordinates"));
       if (userData && userCoordinates) {
-        const { latitude, longitude } = userCoordinates;
+        const { lat, lng } = userCoordinates;
         console.log(userCoordinates);
         const newCoordinates = userCoordinates;
         console.log(newCoordinates);

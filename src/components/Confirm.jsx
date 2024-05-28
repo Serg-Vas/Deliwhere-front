@@ -1,27 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import { createOrder } from './API';
 import Map from './Map';
-import "D:\\work\\Food shop\\front4 copy\\src\\css\\mapStyles.css"
+import "D:\\work\\Food shop\\front4 copy\\src\\css\\mapStyles.css";
 
-const Confirm = ({ clientData, totalOrderPrice, totalFoodPrice, foodItems, cardInfo, localStorageData, onClose }) => {
+const Confirm = ({ clientData, totalOrderPrice, totalFoodPrice, foodItems, foodAmount, localStorageData, onClose }) => {
   const [confirmed, setConfirmed] = useState(false);
-  const [clientName, setClientName] = useState(clientData);
-  const [deliveryLocation, setDeliveryLocation] = useState(clientData);
+  const [clientName, setClientName] = useState(clientData && clientData.name);
+  const [deliveryLocation, setDeliveryLocation] = useState(clientData && clientData.address);
 
   useEffect(() => {
-    setClientName(clientData.name);
-    setDeliveryLocation(clientData.address);
+    if (clientData) {
+      setClientName(clientData.name);
+      setDeliveryLocation(clientData.address);
+    }
   }, [clientData]);
 
-  const handleSubmit = (e) => {
+  const handleAddressUpdate = (address) => {
+    setDeliveryLocation(address);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const data = new FormData(e.target);
     const formJSON = Object.fromEntries(data.entries());
-    const fetchOrder = async () => {
+    try {
       const usersData = await createOrder(formJSON);
       console.log(usersData, "1234");
-    };
-    fetchOrder();
+      setConfirmed(false); // Close the modal on successful submission
+    } catch (error) {
+      console.error("Order submission failed:", error);
+      // Optionally, display an error message to the user
+    }
   };
 
   const handleKeyDown = (e) => {
@@ -50,7 +59,7 @@ const Confirm = ({ clientData, totalOrderPrice, totalFoodPrice, foodItems, cardI
             <div className="modal-dialog" role="document">
               <div className="modal-content">
                 <div className="modal-header">
-                  <h5 className="modal-title">Confirmation</h5>
+                  <h5 className="modal-title" style={{paddingLeft: '38%'}}>Confirmation</h5>
                   <button
                     type="button"
                     className="close"
@@ -60,9 +69,8 @@ const Confirm = ({ clientData, totalOrderPrice, totalFoodPrice, foodItems, cardI
                   </button>
                 </div>
                 <div className="modal-body">
-                  <Map />
-                  <label htmlFor="client">
-                    Your Name:
+                  <label htmlFor="client" style={{marginBottom: '1rem'}}>
+                  <h5>Your Name:</h5>
                     <input
                       type="text"
                       id="client"
@@ -72,37 +80,37 @@ const Confirm = ({ clientData, totalOrderPrice, totalFoodPrice, foodItems, cardI
                       onChange={(e) => setClientName(e.target.value)}
                     />
                   </label>
+                  <div>
+                  <h5>Cart Items:</h5>
                   <ul id="foodItems" name="foodItems">
                     {foodItems.map((item, index) => (
                       <li key={index}>
-                        {item.name} - ${totalFoodPrice[item.id]}
+                        {item.name} ({item.amount}) {item.shopName} - ${totalFoodPrice[item.id].toFixed(2)} 
                         <input type="hidden" name="foodItems" value={localStorageData} />
                       </li>
                     ))}
                   </ul>
                   <p id="totalPrice" name="totalPrice">Total Price: ${totalOrderPrice}</p>
+                  </div>
                   <input type="hidden" id="totalPrice" name="totalPrice" value={totalOrderPrice} />
+                  <div>
+                  <h5>Delivery Location:</h5>
+                    <Map onAddressUpdate={handleAddressUpdate} />
                   <label htmlFor="deliveryAddress">
-                    <p>Delivery Location:</p>
-                    <input
-                      type="text"
-                      id="deliveryAddress"
-                      name="deliveryAddress"
-                      required
-                      value={deliveryLocation}
-                      onChange={(e) => setDeliveryLocation(e.target.value)}
-                    />
+                    <input type='hidden' name="deliveryAddress" value={deliveryLocation} />
                   </label>
-                  <p>Card Info: {cardInfo}</p>
+                  </div>
+                  {/* <p>Card Info: {cardInfo}</p> */}
+                  <div className='comment'>
                   <label htmlFor="comment">
-                    Your comment:
-                    <textarea
+                  <h5>Your comment:</h5>
+                    <textarea style={{width: '400px'}}
                       id="comment"
                       name="comment"
                     >Your comment</textarea>
                   </label>
                   <button type="submit">Submit Order</button>
-                  <p>Your order has been confirmed!</p>
+                  </div>
                 </div>
               </div>
             </div>

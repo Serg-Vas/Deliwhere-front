@@ -36,4 +36,4 @@ const Token = () => {
   );
 };
 
-export default Token;
+// export default Token;

@@ -8,22 +8,38 @@ const Cart = (props) => {
   console.log(props, 'cart')
   console.log(props.clientName);
   const clientName = props.clientName
-  const foods = localStorage.getItem('food')
-  console.log(foods)
-  const order = JSON.parse(foods)   // const ordered = foods ? JSON.parse(foods) : [];
-  console.log(order)
-  const [ordered, setOrdered] = useState(order)
-  const indeces = ordered && ordered.map(x => x.id)
-  console.log(ordered, props.shops);
-  const list = props.shops.reduce((acc, shop) => {
-    shop.food.forEach(food => {
-      if (ordered.find(item => item.id === food.id)) {
-        acc.push({ ...food, logo: shop.logo }); // Include logo information
-      }
-    });
-    return acc;
-  }, []);
-  console.log(list, 'items')
+  const foods = localStorage.getItem('food');
+console.log(foods);
+const order = JSON.parse(foods); // const ordered = foods ? JSON.parse(foods) : [];
+console.log(order);
+const [ordered, setOrdered] = useState(order);
+const [amounts, setAmounts] = useState(() => {
+  const initialAmounts = {};
+  order.forEach(item => {
+    initialAmounts[item.id] = item.amount;
+  });
+  return initialAmounts;
+});
+const indices = ordered && ordered.map(x => x.id);
+console.log(ordered, props.shops);
+
+const list = props.shops.reduce((acc, shop) => {
+  shop.food.forEach(food => {
+    const orderedItem = ordered && ordered.find(item => item.id === food.id);
+    if (orderedItem) {
+      acc.push({ 
+        ...food, 
+        logo: shop.logo, 
+        shopName: shop.name, 
+        amount: amounts[food.id]  // Include the amount information
+      });
+    }
+  });
+  return acc;
+}, []);
+
+console.log(list, 'items');
+
   
   function test() {
     const store = localStorage.getItem("food")
@@ -46,6 +62,13 @@ const Cart = (props) => {
 
   console.log(subSum, 'subSum')
 
+  const updateAmount = (id, amount) => {
+    setAmounts(prevAmounts => ({
+      ...prevAmounts,
+      [id]: amount 
+    }));
+  };
+
   return (
     <section className="Header restaurants board">
       <nav className='' style={{ position: 'relative' }}>
@@ -54,16 +77,18 @@ const Cart = (props) => {
         {/* <Map /> */}
 
       </nav>
-      <img src="table.svg" alt="Description of the image" style={{ width: "95vw" }} />
+      {/* {list.length !== 0 &&   */}
+      <img className='table' draggable="false" src="table.svg" alt="Description of the image" style={{ width: "95vw"}} />
+      {/* } */}
       
       <figure className='choosedfood-container'>
-        {/* <figcaption> */}
-          {list.map((food) => (<ChoosedFood setOrdered={setOrdered} key={food.id} id={food.id} name={food.name} price={food.price} image={food.image} logo={food.logo} sum={subSum} setSum={setSubSum} />))}
-        {/* </figcaption> */}
+          {list.map((food) => (<ChoosedFood setOrdered={setOrdered} key={food.id} id={food.id} name={food.name} price={food.price} image={food.image} logo={food.logo} sum={subSum} setSum={setSubSum} updateAmount={updateAmount}/>))}
+          {list.length == 0 && <h1 className='empty'>Your cart is empty...</h1>}
       </figure>
-          <h3>Total price: {sum}$</h3>
-
+      {list.length !== 0 && <div>
+          <h2 className='total'>Total price: {sum}$</h2>
           {<Confirm clientData={JSON.parse(localStorage.getItem('userData'))} totalOrderPrice={sum} totalFoodPrice={subSum} foodItems={list} localStorageData={localStorage.getItem('food')}/>}
+      </div>}
       {/* <button onClick={test}>Submit</button> DO NOT PRESS!!!  */}
           {/* <nav style={{ width: "25vw" }}>
           <Map />

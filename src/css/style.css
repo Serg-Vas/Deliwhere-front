@@ -32,6 +32,16 @@ div .pages {
 
 .login {
     gap: 25px;
+    align-items: center
+}
+
+.userName{
+    font-family: 'IndieFlower', 'sans serif';
+    margin: 0;
+}
+
+.logout{
+    display: flex;
 }
 
 .navbar {
@@ -148,4 +158,38 @@ figcaption {
 .Header.restaurants div img{
     width: 17.5vw;
     height: 20vh;
+}
+
+.total{
+    font-family: 'IndieFlower', 'sans serif';
+}
+
+.empty{
+    font-family: 'IndieFlower', 'sans serif';
+    padding: 5vw 0;
+    margin: 0;
+}
+
+img{
+    user-select: none;
+}
+
+.modal{
+    overflow-y: scroll;
+    /* height: 200px; */
+}
+
+.modal::-webkit-scrollbar{
+    display: none;
+}
+
+.comment{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.modal-body > *{
+    padding: 15px 0;
+    margin: 0;
 }

@@ -1,14 +1,14 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link, Navigate } from "react-router-dom";
+// import  { redirect } from 'react-router-dom'
 import Shops from './components/Shops';
 import Cart from './components/Cart';
 import MainPage from './components/MainPage';
 import Register from './components/Register';
 import Login from './components/Login';
 import Logout from './components/Logout';
-import Token from './components/Token';
+// import Token from './components/Token';
 import { decodeJWT } from './components/API';
-import axios from 'axios';
 // import axios from 'axios';
 
 const baseUrl = 'https://reqres.in/api/unknown/1'
@@ -77,15 +77,27 @@ class App extends React.Component {
     this.setState({ isLoggedIn: false });
     this.setState({ authName: '' }); 
     const keyToken = "token"
-    console.log(localStorage.getItem(keyToken));
-    localStorage.removeItem(keyToken); 
-    console.log(localStorage.getItem(keyToken));
+    clearStorage(keyToken)
+    // console.log(localStorage.getItem(keyToken));
+    // localStorage.removeItem(keyToken); 
+    // console.log(localStorage.getItem(keyToken));
 
     const keyUser = "userData"
-    console.log(localStorage.getItem(keyUser));
-    localStorage.removeItem(keyUser); 
-    console.log(localStorage.getItem(keyUser));
+    clearStorage(keyUser)
+    // console.log(localStorage.getItem(keyUser));
+    // localStorage.removeItem(keyUser); 
+    // console.log(localStorage.getItem(keyUser));
     this.saveAuthInfo('', false);
+
+    const keyFood = "food"
+    clearStorage(keyFood)
+
+    function clearStorage(key) {
+    console.log(localStorage.getItem(key), key);
+    localStorage.removeItem(key); 
+    console.log(localStorage.getItem(key));
+    }
+    // return redirect("/login");
   };
 
   handleAuthNameChange = (newAuthName) => {
@@ -160,15 +172,17 @@ class App extends React.Component {
       try {
           const key = "userData"
           const userData = JSON.parse(localStorage.getItem(key));
-          console.log(userData.name);
-          this.setState({
-            authName: userData.name, // Assuming username is part of the JWT payload
-            isAuth: true,
-          });
-          // Save token and authentication status
-          this.saveAuthInfo(this.state.token, true);
-        // localStorage.clear()
-        // console.log(userData);
+          console.log(userData, "userData.name");
+          if (userData) {
+            this.setState({
+              authName: userData.name, // Assuming username is part of the JWT payload
+              isAuth: true,
+            });
+            // Save token and authentication status
+            this.saveAuthInfo(this.state.token, true);
+          // localStorage.clear()
+          // console.log(userData);
+          }
       } catch (error) {
         console.log(error);
       }
@@ -199,7 +213,7 @@ class App extends React.Component {
                 {/* <li><h1>|</h1></li> */}
                 <h1><Link to="/cart">Cart</Link></h1>
               </div>
-              {shops.length > 0 && shops.map((shop) => (<li><h1><Link to={"/" + shop.id}>{shop.name}</Link></h1></li>))}
+              {/* {shops.length > 0 && shops.map((shop) => (<li key={shop.id}><h1><Link to={"/" + shop.id}>{shop.name}</Link></h1></li>))} */}
               <div className='login'>
               {!localStorage.getItem('token') && (
                 <>
@@ -207,18 +221,19 @@ class App extends React.Component {
                     // onLogin={this.handleLogin}
                     onAuthNameChange={this.handleAuthNameChange}
                     getToken={this.handleToken}
-                  />
+                    />
                   <Register
                     // onLogin={this.handleLogin}
                     onAuthNameChange={this.handleAuthNameChange}
                     getToken={this.handleToken}
-                  />
+                    />
                 </>
               )}
-              {localStorage.getItem('token') && <Logout onLogout={this.handleLogout} />}
-                <p>{this.state.authName}</p>
+              {localStorage.getItem('token') && <h1><Link to="/logout"><button type="button" className="btn btn-primary logout">Logout</button></Link></h1> }
+              {/* <Logout onLogout={this.handleLogout} /> */}
+                {this.state.authName !== '' && <h2 className='userName'>Welcome, {this.state.authName}</h2>}               
                 {/* <p>{this.state.token}</p> */}
-                <button type="button" onClick={this.handleHeaders}>Send Headers</button>
+                {/* <button type="button" onClick={this.handleHeaders}>Send Headers</button> */}
               </div>
             </nav>
             {/* <Link to="/login">Login</Link> */}
@@ -226,21 +241,28 @@ class App extends React.Component {
             {/* <Login onAuthNameChange={this.handleAuthNameChange}/>
               <Register onAuthNameChange={this.handleAuthNameChange}/>
             <p>{this.state.authName}</p> */}
-            <div>
+            {/* <div>
               <Token />
-            </div>
+            </div> */}
           </header>
           <main>
           <Routes>
             <Route path="/" element={<MainPage shop={shops} token={token}/>}></Route>
+            <Route path='/logout' element={<Logout onLogout={this.handleLogout}/>}></Route>
+            {/* <Route action={this.handleLogout} path="/logout" element={ <Navigate to="/" /> }/> */}
             <Route path="/cart" element={<Cart shops={shops} clientName={this.state.authName}/>}></Route>
-            {shops.map((shop) => (<Route path={"/" + shop.id} element={<Shops food={shop.food} logo={shop.logo}/>}></Route>))}
+            {shops.map((shop) => (<Route key={shop.id} path={"/" + shop.id} element={<Shops food={shop.food} logo={shop.logo}/>}></Route>))}
             {/* <Route path="/login" element={<Login />}></Route> */}
             {/* <Route path="/register" element={<Register />}></Route> */}
           </Routes>
           {/* <Popup /> */}
           </main>
         </Router>
+        <footer>
+          <div>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia maiores id quaerat voluptates? Nisi pariatur excepturi assumenda, saepe sed tempora ea? Enim voluptatibus minus quasi quas consectetur magni quod itaque?</p>
+          </div>
+        </footer>
       </div>
     );
   }

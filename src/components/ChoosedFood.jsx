@@ -18,12 +18,13 @@ function ChoosedFood(props) {
         delete props.sum[props.id]
         props.setSum({ ...props.sum })
       }
-      // alert(props.name + " removed from cart")
       console.log(props.id + " removed from cart");
     }
   }
+  
   const manipulatedFoodSVG = props.image.replace('<svg ', '<svg height="120" ');
   const manipulatedLogoSVG = props.logo.replace('<svg ', '<svg height="70" ');
+  
   return (
     <figure>
       <img src="foodBackground.svg" style={{ width: '100%' }} />
@@ -34,7 +35,13 @@ function ChoosedFood(props) {
         <h5>{props.price}$</h5>
         <div>
           <button onClick={setDeleted}>Remove from cart</button>
-          <FoodAmount setSum={props.setSum} sum={props.sum} id={props.id} price={props.price} />
+          <FoodAmount 
+            setSum={props.setSum} 
+            sum={props.sum} 
+            id={props.id} 
+            price={props.price}
+            updateAmount={props.updateAmount}  // Pass the update function to FoodAmount
+          />
         </div>
       </figcaption>
     </figure>
