@@ -1,13 +1,14 @@
 import axios from 'axios';
 import { instance } from "./API.config.jsx";
 
-const API_URL = 'http://localhost:3000';
-const API_URL2 = 'http://localhost/DeliveryBack/InsertUser.php';
-const API_URL3 = 'http://localhost/DeliveryBack/CheckUser.php';
-const API_URL4 = 'http://localhost/DeliveryBack/Token.php';
-const API_URL5 = 'http://localhost/DeliveryBack/CreateOrder.php';
-const API_URL6 = 'http://localhost/DeliveryBack/generateToken.php';
-const API_URL7 = 'http://localhost/DeliveryBack/getToken.php';
+const host ="54.93.231.47" //localhost
+// const API_URL = 'http://localhost:3000';
+const API_URL2 = `http://${host}/DeliveryBack/InsertUser.php`;
+const API_URL3 = `http://${host}/DeliveryBack/CheckUser.php`;
+const API_URL4 = `http://${host}/DeliveryBack/Token.php`;
+const API_URL5 = `http://${host}/DeliveryBack/CreateOrder.php`;
+const API_URL6 = `http://${host}/DeliveryBack/generateToken.php`;
+const API_URL7 = `http://${host}/DeliveryBack/getInfo.php`;
 
 
 export const getToken = async (username, password) => {
@@ -39,7 +40,7 @@ export const createUser = async (user) => {
 
 export const createJWT = async(userData) =>{
   try {
-    const response = await axios.post('http://localhost/DeliveryBack/generateToken.php', userData);
+    const response = await axios.post(API_URL6, userData);
     return response.data;
   } catch (error) {
     return error;
@@ -48,7 +49,7 @@ export const createJWT = async(userData) =>{
 
 export const decodeJWT = async() =>{
   try {
-    const response = await axios.post('http://localhost/DeliveryBack/getInfo.php', {}, {
+    const response = await axios.post(API_URL7, {}, {
       headers: {
       'Authorization': localStorage.getItem("token"),
       }
@@ -60,11 +61,11 @@ export const decodeJWT = async() =>{
 }
 
 export const createOrder = async (order) => {
-  try {
+  // try {
     const response = await axios.post(`${API_URL5}/orders`, order);
     console.log(response.data);
     return response.data;
-  } catch (error) {
-    return error;
-  }
+  // } catch (error) {
+  //   return error;
+  // }
 };

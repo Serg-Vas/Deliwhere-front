@@ -12,6 +12,7 @@ import { decodeJWT } from './components/API';
 // import axios from 'axios';
 
 const baseUrl = 'https://reqres.in/api/unknown/1'
+const host = "54.93.231.47" //localhost
 
 class App extends React.Component {
   constructor(props) {
@@ -78,17 +79,9 @@ class App extends React.Component {
     this.setState({ authName: '' }); 
     const keyToken = "token"
     clearStorage(keyToken)
-    // console.log(localStorage.getItem(keyToken));
-    // localStorage.removeItem(keyToken); 
-    // console.log(localStorage.getItem(keyToken));
-
     const keyUser = "userData"
     clearStorage(keyUser)
-    // console.log(localStorage.getItem(keyUser));
-    // localStorage.removeItem(keyUser); 
-    // console.log(localStorage.getItem(keyUser));
     this.saveAuthInfo('', false);
-
     const keyFood = "food"
     clearStorage(keyFood)
 
@@ -141,7 +134,7 @@ class App extends React.Component {
   }
   
   handleHeaders = async () => {
-    const response = await fetch("http://localhost/DeliveryBack/getInfo.php", { //https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+    const response = await fetch(`http://${host}/DeliveryBack/getInfo.php`, { //https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
       headers: {
           'Authorization': localStorage.getItem("token"),
       }
@@ -153,7 +146,7 @@ class App extends React.Component {
   }
 
   async componentDidMount() {
-    const url = "http://localhost/DeliveryBack/SelectRestaurants.php"
+    const url = `http://${host}/DeliveryBack/SelectRestaurants.php`
     // const url = "/shops.json";
     fetch(url)
       .then(response => response.json())
@@ -258,11 +251,40 @@ class App extends React.Component {
           {/* <Popup /> */}
           </main>
         </Router>
-        <footer>
-          <div>
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia maiores id quaerat voluptates? Nisi pariatur excepturi assumenda, saepe sed tempora ea? Enim voluptatibus minus quasi quas consectetur magni quod itaque?</p>
-          </div>
-        </footer>
+        <footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-6">
+                <h5>About Us</h5>
+                <p>Your go-to platform for ordering delicious food online. We connect you with your favorite local restaurants, delivering convenience and flavor right to your doorstep.</p>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <h5>Contact Us</h5>
+                <ul class="list-unstyled">
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Main Street, City, Country</li>
+                    <li><i class="fas fa-phone"></i> +380 (050) 180-9051</li>
+                    <li><i class="fas fa-envelope"></i> deliwhere@gmail.com</li>
+                </ul>
+            </div>
+            <div class="col-lg-4 col-md-12">
+                <h5>Follow Us</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#"><i class="fab fa-facebook-f"></i> Facebook</a></li>
+                    <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+                    <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="footer-bottom">
+                    <p class="text-center">© 2024 Deliwhere. Made By Сергій Василевський</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
       </div>
     );
   }

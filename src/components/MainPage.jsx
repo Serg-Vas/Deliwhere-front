@@ -16,7 +16,8 @@ const MainPage = (props) => {
       <figure>
         <img src="table.svg" alt="Description of the image" style={{ width: "63vw"}}/>
         <figcaption>
-          {props.shop.map((shop) => {
+          {props.shop.length != 0 ?
+          props.shop.map((shop) => {
             return (
               <Link key={shop.id} to={"/" + shop.id}>
                 <div style={{ position: 'relative' }}>
@@ -27,7 +28,7 @@ const MainPage = (props) => {
                 </div>
               </Link>
             );
-          })}
+          }) : <h1 className='flowerFont'>No shops around...</h1>}
         </figcaption>
       </figure>
     </section>

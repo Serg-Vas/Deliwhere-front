@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { createOrder } from './API';
 import Map from './Map';
-import "D:\\work\\Food shop\\front4 copy\\src\\css\\mapStyles.css";
+import OrderConfirmed from './OrderConfirmed';
+import OrderCancel from './OrderCancel'; // Corrected import
+import "../css/mapStyles.css";
 
 const Confirm = ({ clientData, totalOrderPrice, totalFoodPrice, foodItems, foodAmount, localStorageData, onClose }) => {
   const [confirmed, setConfirmed] = useState(false);
   const [clientName, setClientName] = useState(clientData && clientData.name);
   const [deliveryLocation, setDeliveryLocation] = useState(clientData && clientData.address);
+  const [orderSubmitted, setOrderSubmitted] = useState(false);
+  const [orderFailed, setOrderFailed] = useState(false);
 
   useEffect(() => {
     if (clientData) {
@@ -26,10 +30,14 @@ const Confirm = ({ clientData, totalOrderPrice, totalFoodPrice, foodItems, foodA
     try {
       const usersData = await createOrder(formJSON);
       console.log(usersData, "1234");
-      setConfirmed(false); // Close the modal on successful submission
+      setConfirmed(false);
+      setOrderSubmitted(true);
+      setOrderFailed(false);
     } catch (error) {
       console.error("Order submission failed:", error);
-      // Optionally, display an error message to the user
+      setConfirmed(false);
+      setOrderSubmitted(false);
+      setOrderFailed(true); 
     }
   };
 
@@ -85,7 +93,7 @@ const Confirm = ({ clientData, totalOrderPrice, totalFoodPrice, foodItems, foodA
                   <ul id="foodItems" name="foodItems">
                     {foodItems.map((item, index) => (
                       <li key={index}>
-                        {item.name} ({item.amount}) {item.shopName} - ${totalFoodPrice[item.id].toFixed(2)} 
+                        {item.name} ({item.amount}) {item.shopName} - ${totalFoodPrice[item.id].toFixed(2)}
                         <input type="hidden" name="foodItems" value={localStorageData} />
                       </li>
                     ))}
@@ -100,14 +108,14 @@ const Confirm = ({ clientData, totalOrderPrice, totalFoodPrice, foodItems, foodA
                     <input type='hidden' name="deliveryAddress" value={deliveryLocation} />
                   </label>
                   </div>
-                  {/* <p>Card Info: {cardInfo}</p> */}
                   <div className='comment'>
                   <label htmlFor="comment">
                   <h5>Your comment:</h5>
                     <textarea style={{width: '400px'}}
                       id="comment"
                       name="comment"
-                    >Your comment</textarea>
+                      placeholder='Your comment'
+                    ></textarea>
                   </label>
                   <button type="submit">Submit Order</button>
                   </div>
@@ -117,6 +125,8 @@ const Confirm = ({ clientData, totalOrderPrice, totalFoodPrice, foodItems, foodA
           </div>
         </form>
       )}
+      {orderSubmitted && <OrderConfirmed onClose={() => setOrderSubmitted(false)} />}
+      {orderFailed && <OrderCancel onClose={() => setOrderFailed(false)} />}
     </div>
   );
 };

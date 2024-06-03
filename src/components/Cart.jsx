@@ -2,7 +2,6 @@ import React from 'react'
 import ChoosedFood from './ChoosedFood';
 import { useState, useEffect } from 'react';
 import Confirm from './Confirm';
-import Map from './Map';
 
 const Cart = (props) => {
   console.log(props, 'cart')
@@ -15,7 +14,7 @@ console.log(order);
 const [ordered, setOrdered] = useState(order);
 const [amounts, setAmounts] = useState(() => {
   const initialAmounts = {};
-  order.forEach(item => {
+  order && order.forEach(item => {
     initialAmounts[item.id] = item.amount;
   });
   return initialAmounts;
@@ -93,7 +92,6 @@ console.log(list, 'items');
           {/* <nav style={{ width: "25vw" }}>
           <Map />
           </nav> */}
-
     </section>
   )
 }

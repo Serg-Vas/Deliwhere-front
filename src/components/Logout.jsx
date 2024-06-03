@@ -10,14 +10,9 @@ const Logout = ({ onLogout }) => {
     onLogout();
     
   }, []);
-  // const handleLogout = () => {
-    
-  // };
-  // return redirect("/");
   return (
     // <button type="button" className="btn btn-primary" onClick={onLogout}>Logout</button>
     <Navigate to="/" />
-
   );
 };
 

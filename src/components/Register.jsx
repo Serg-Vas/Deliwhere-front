@@ -19,9 +19,23 @@ const Register = ({onAuthNameChange, onLogin, getToken}) => { {/*props ???*/}
       usersData.name !== "AxiosError" ? ((() => {onAuthNameChange(newAuthName);})()) : console.log("Не удалось создать аккаунт");
       // setUser(usersData)
       
-    const token = await createJWT(usersData)
-    console.log(token);
-    getToken(token)
+      const userData = await getUsers(formJSON.name, formJSON.password);
+      console.log(userData);
+      if (userData.status === 200) {
+      console.log('User authenticated successfully.');
+      const token = await createJWT(userData.data)
+      console.log(token, userData.data);
+      const key = "token"
+      const tokenItem = localStorage.getItem(key) || token
+      console.log(tokenItem);
+      localStorage.setItem(key, tokenItem)
+      console.log(tokenItem);
+      getToken(token)
+
+      } else {
+        console.error('Invalid username or password.');
+        setShowModal(true);
+      }
     };
     // const encodeUserData = async (usersData) => {
     // }
@@ -65,11 +79,11 @@ const Register = ({onAuthNameChange, onLogin, getToken}) => { {/*props ???*/}
                 <form onSubmit={handleFormSubmit}>
                   <div className="form-group">
                     <label htmlFor="name">Username:</label>
-                    <input type="text" className="form-control" id="name" name="name" required />
+                    <input type="text" placeholder='Please write your actual name' className="form-control" id="name" name="name" required pattern="[A-Za-zА-Яа-яІіЇїЄєҐґ ]+"/>
                   </div>
                   <div className="form-group">
                     <label htmlFor="phone">Phone:</label>
-                    <input type="phone" className="form-control" id="phone" name="phone" required />
+                    <input type="phone" className="form-control" id="phone" name="phone" required pattern="[0-9]{10}"/>
                   </div>
                   <div className="form-group">
                     <label htmlFor="email">Email:</label>

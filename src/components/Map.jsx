@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import "D:\\work\\Food shop\\front4 copy\\src\\css\\mapStyles.css";
+import "../css/mapStyles.css";
 
 const Map = ({ onAddressUpdate }) => {
   const [deliveryLocation, setDeliveryLocation] = useState(); // clientData

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-const OrderConfirmed = ({ onClose }) => {
+const OrderCancel = ({ onClose }) => {
   const [fadeOut, setFadeOut] = useState(false);
 
   useEffect(() => {
@@ -19,10 +19,10 @@ const OrderConfirmed = ({ onClose }) => {
       <div className="modal-dialog" role="document">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title" id="orderConfirmedModalLabel" style={{ paddingLeft: '33%' }}>Order Confirmed</h5>
+            <h5 className="modal-title" id="orderConfirmedModalLabel" style={{ paddingLeft: '33%' }}>Something went wrong((</h5>
           </div>
           <div className="modal-body">
-            <p>Thank you for using our service, your order is on the way</p>
+            <p>Your order were decline! Check your network connection, or try again later</p>
           </div>
         </div>
       </div>
@@ -30,4 +30,4 @@ const OrderConfirmed = ({ onClose }) => {
   );
 }
 
-export default OrderConfirmed;
+export default OrderCancel;
