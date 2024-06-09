@@ -22,17 +22,24 @@ function ChoosedFood(props) {
     }
   }
   
-  const manipulatedFoodSVG = props.image.replace('<svg ', '<svg height="120" ');
-  const manipulatedLogoSVG = props.logo.replace('<svg ', '<svg height="70" ');
-  
+  // const manipulatedFoodSVG = props.image.replace('<svg ', '<svg height="120" ');
+  // const manipulatedLogoSVG = props.logo.replace('<svg ', '<svg height="70" ');
+  const host ="54.93.231.47" //localhost
+  // const host ="localhost" //
+  const imageUrl = `http://${host}/DeliveryBack/foodimages/${props.id}.svg`;
+  const logoUrl = `http://${host}/DeliveryBack/images/${props.shopId}.svg`;
   return (
-    <figure>
-      <img src="foodBackground.svg" style={{ width: '100%' }} />
+    <figure className='foodItem'>
+      <img className='foodBackground' src="foodBackground.svg"/>
       <figcaption className='choosedfood-item'>
-        <span dangerouslySetInnerHTML={{ __html: manipulatedLogoSVG }} style={{position:"absolute", top:"15%", left:"57%"}}/>
-        <span dangerouslySetInnerHTML={{ __html: manipulatedFoodSVG }} />
+        {/* <span dangerouslySetInnerHTML={{ __html: manipulatedLogoSVG }} style={{position:"absolute", top:"15%", left:"57%"}}/>
+        <span dangerouslySetInnerHTML={{ __html: manipulatedFoodSVG }} /> */}
+        <img src={logoUrl} alt="" className="logo"/>
+        <img src={imageUrl} alt="" className="foodImage"/>
         <h4>{props.name}</h4>
-        <h5>{props.price}$</h5>
+        {/* <h4>{props.id}</h4>
+        <h4>{props.shopId}</h4> */}
+        <h4>{props.price}$</h4>
         <div>
           <button onClick={setDeleted}>Remove from cart</button>
           <FoodAmount 

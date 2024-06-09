@@ -9,19 +9,19 @@ const MainPage = (props) => {
   return (
     <section className="Header restaurants">
       <nav className='board' style={{ position: 'relative'}}>
-      <img src="sighboard.svg" style={{ width: "25vw"}}/>
+      <img className='select-restaurant' src="sighboard.svg" style={{ width: "25vw"}}/>
       <h2 className='board-text'>Select restaurant</h2>
       {/* <h2>{props.token}</h2> */}
       </nav>
       <figure>
-        <img src="table.svg" alt="Description of the image" style={{ width: "63vw"}}/>
+        <img className='restaurant-table' src="table.svg" alt="Description of the image" style={{width:'63vw'}}/>
         <figcaption>
           {props.shop.length != 0 ?
           props.shop.map((shop) => {
             return (
               <Link key={shop.id} to={"/" + shop.id}>
                 <div style={{ position: 'relative' }}>
-                  <img src="white_paper.svg" alt="White Paper" />
+                  <img className='restaurant-blank' src="white_paper.svg" alt="White Paper" />
                   <h3 className="restaurant-item">
                     {shop.name}
                   </h3>

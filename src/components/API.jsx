@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { instance } from "./API.config.jsx";
 
+// const host ="localhost" //54.93.231.47
 const host ="54.93.231.47" //localhost
 // const API_URL = 'http://localhost:3000';
 const API_URL2 = `http://${host}/DeliveryBack/InsertUser.php`;
@@ -9,7 +10,13 @@ const API_URL4 = `http://${host}/DeliveryBack/Token.php`;
 const API_URL5 = `http://${host}/DeliveryBack/CreateOrder.php`;
 const API_URL6 = `http://${host}/DeliveryBack/generateToken.php`;
 const API_URL7 = `http://${host}/DeliveryBack/getInfo.php`;
+const API_URL8 = `http://${host}/DeliveryBack/SelectRestaurant.php`;
 
+export const selectRestaurant = async (id) => {
+  const response = await axios.get(`${API_URL8}?restaurant_id=${id}`);
+  // console.log(response.data);
+  return response.data;
+}; 
 
 export const getToken = async (username, password) => {
   const response = await axios.post(API_URL4, {name: username, password});
@@ -30,7 +37,7 @@ export const getUsers = async (username, password) => {
 
 export const createUser = async (user) => {
   try {
-    const response = await axios.post(`${API_URL2}/users`, user);
+    const response = await axios.post(`${API_URL2}`, user);
     console.log(response.config.data, "response");
     return response.config.data;
   } catch (error) {
@@ -62,7 +69,7 @@ export const decodeJWT = async() =>{
 
 export const createOrder = async (order) => {
   // try {
-    const response = await axios.post(`${API_URL5}/orders`, order);
+    const response = await axios.post(`${API_URL5}`, order);
     console.log(response.data);
     return response.data;
   // } catch (error) {

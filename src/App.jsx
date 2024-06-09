@@ -11,8 +11,8 @@ import Logout from './components/Logout';
 import { decodeJWT } from './components/API';
 // import axios from 'axios';
 
-const baseUrl = 'https://reqres.in/api/unknown/1'
-const host = "54.93.231.47" //localhost
+// const host ="localhost" //54.93.231.47
+const host ="54.93.231.47" //localhost
 
 class App extends React.Component {
   constructor(props) {
@@ -244,7 +244,8 @@ class App extends React.Component {
             <Route path='/logout' element={<Logout onLogout={this.handleLogout}/>}></Route>
             {/* <Route action={this.handleLogout} path="/logout" element={ <Navigate to="/" /> }/> */}
             <Route path="/cart" element={<Cart shops={shops} clientName={this.state.authName}/>}></Route>
-            {shops.map((shop) => (<Route key={shop.id} path={"/" + shop.id} element={<Shops food={shop.food} logo={shop.logo}/>}></Route>))}
+            {/* {shops.map((shop) => (<Route key={shop.id} path={"/" + shop.id} element={<Shops food={shop.food} logo={shop.logo}/>}></Route>))} */}
+            {shops.map((shop) => (<Route key={shop.id} path={"/" + shop.id} element={<Shops food={shop.id}/>}></Route>))}
             {/* <Route path="/login" element={<Login />}></Route> */}
             {/* <Route path="/register" element={<Register />}></Route> */}
           </Routes>

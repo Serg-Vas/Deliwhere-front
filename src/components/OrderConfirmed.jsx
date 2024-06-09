@@ -8,6 +8,15 @@ const OrderConfirmed = ({ onClose }) => {
       setFadeOut(true); // Start fade-out animation
       setTimeout(() => {
         onClose(); // Call the onClose function after animation completes
+
+        function clearStorage(key) {
+        console.log(localStorage.getItem(key), key);
+        localStorage.removeItem(key); 
+        console.log(localStorage.getItem(key));
+        }
+        const keyFood = "food"
+        clearStorage(keyFood)
+        window.location.replace('/');
       }, 500); // Wait for the animation to complete
     }, 5000); // Close after 3 seconds
 

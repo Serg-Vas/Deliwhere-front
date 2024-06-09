@@ -31,7 +31,7 @@ const FoodAmount = (props) => {
   return (
     <>
       <button onClick={() => setAmount(amount + 1)}>+</button>
-      <button onClick={() => amount === 0 ? amount : setAmount(amount - 1)}>-</button>
+      <button onClick={() => amount === 1 ? amount : setAmount(amount - 1)}>-</button>
       <p>{amount}</p>
     </>
   );

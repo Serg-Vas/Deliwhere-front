@@ -163,7 +163,7 @@ figcaption {
 .choosedfood-container{
     position: absolute;
     display: inline-block;
-    top: 30vh;
+    top: 15vw;
 }
 /* 
 .board{
@@ -176,7 +176,7 @@ figcaption {
 
 .Header.restaurants div img{
     width: 17.5vw;
-    height: 20vh;
+    height: 20%;
 }
 
 .total{
@@ -241,3 +241,186 @@ img{
     opacity: 0;
   }
 }
+
+.table2{
+    display: none;
+}
+@media screen and (max-width: 1100px) {
+    .table1{
+        display: none;
+    }
+    .table2{
+        display: block;
+        transform: rotate(90deg);
+        margin-top: 40%;
+        margin-bottom: 40%;
+        margin-left: 2.5%;
+    }  
+    .foodItem{
+        /* display: block; */
+        padding: 0px 20px;
+    }
+
+    .choosedfood-container{
+        position: relative;
+        top: 0px;
+    }
+  }
+ 
+  .foodItem img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .choosedfood-item {
+    /* position: relative; */
+    text-align: center;
+  }
+  
+  .choosedfood-item img.logo {
+    position: absolute;
+    top: 15%;
+    left: 69%;
+    height: 70px;
+  }
+  
+  .choosedfood-item img.foodImage {
+    height: 120px;
+  }
+  
+  @media (max-width: 1200px) {
+    .choosedfood-item img.logo {
+      /* left: 60%; */
+      height: 55px;
+    }
+  
+    .choosedfood-item img.foodImage {
+      height: 100px;
+    }
+
+    img.foodBackground {
+      height: 320px;
+    }
+
+    .choosedfood-item h4 {
+    font-size: 20px;
+    }
+
+    h1.board-text{
+        font-size: 32px;
+    }
+
+    h2.board-text{
+        font-size: 26px;
+    }
+
+    h2.total{
+        font-size: 30px;
+    }
+
+    .choosedfood-item button {
+        padding: 2px 4px;
+        font-size: 14px;
+    }
+
+    .restaurant-blank{
+    width: 23vw !important;
+    }
+    
+    .restaurant-table{
+        width: 80vw !important;
+    }
+
+    .restaurant-item{
+        font-size: 22px;
+    }
+
+    .select-restaurant{
+        width: 280px !important
+    }
+
+    .Header h1{
+        font-size: 30px;
+    }
+
+    .Header h2{
+        font-size: 24px;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .choosedfood-item img.logo {
+      /* left: 50%; */
+      height: 45px;
+    }
+  
+    .choosedfood-item img.foodImage {
+      height: 70px;
+    }
+
+    img.foodBackground {
+        height: 260px;
+    }
+
+    .choosedfood-item h4 {
+    font-size: 18px;
+    }
+
+    h1.board-text{
+        font-size: 22px;
+    }
+
+    h2.board-text{
+        font-size: 18px;
+    }
+
+    h2.total{
+        font-size: 22px;
+    }
+
+    .choosedfood-item button {
+        padding: 1px 2px;
+        font-size: 12px;
+    }
+
+    .foodItem{
+        display: block;
+    }
+
+    .restaurant-blank{
+        width: 29vw !important;
+    }
+        
+    .restaurant-table{
+        width: 100vw !important;
+    }
+
+    .restaurant-item{
+        font-size: 14px;
+    }
+
+    .select-restaurant{
+        width: 200px !important
+    }
+
+    .Header h1{
+        font-size: 26px;
+    }
+
+    .Header h2{
+        font-size: 20px;
+    }
+
+    .navbar{
+        justify-content: center;
+    }
+
+    .navbar *{
+        margin: 0px;
+    }
+
+    .navbar h1{
+        margin: 0px 20px;
+    }
+  }
+  
