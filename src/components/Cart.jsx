@@ -92,7 +92,7 @@ console.log(list, 'items');
   return (
     <section className="Header restaurants board">
       <nav className='' style={{ position: 'relative' }}>
-        <img src="sighboard.svg" style={{ width: "25vw" }} />
+        <img className='select-restaurant' src="sighboard.svg" style={{ width: "25vw" }} />
         <h1 className='board-text'>Cart</h1>
         {/* <Map /> */}
 

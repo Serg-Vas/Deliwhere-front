@@ -24,7 +24,7 @@ function ChoosedFood(props) {
   
   // const manipulatedFoodSVG = props.image.replace('<svg ', '<svg height="120" ');
   // const manipulatedLogoSVG = props.logo.replace('<svg ', '<svg height="70" ');
-  const host ="54.93.231.47" //localhost
+  const host ="localhost" //18.197.164.43
   // const host ="localhost" //
   const imageUrl = `http://${host}/DeliveryBack/foodimages/${props.id}.svg`;
   const logoUrl = `http://${host}/DeliveryBack/images/${props.shopId}.svg`;

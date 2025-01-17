@@ -3,3 +3,9 @@ http://win.test/
 
 ###
 http://localhost/DeliveryBack/getInfo.php
+###
+http://localhost/DeliveryBack/SelectRestaurants.php
+###
+http://localhost/DeliveryBack/db_connection.php
+###
+http://localhost/DeliveryBack/test.php

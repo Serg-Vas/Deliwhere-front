@@ -41,12 +41,5 @@ const Shops = (props) => {
     </>
   )
 }
-      // <span className='shop-icon' dangerouslySetInnerHTML={{ __html: props.logo }} />
-      // <div className='food'>
-      //   {/* <ul><FoodShops /></ul> */}
-      //   {restaurantInfo}
-      //   {/* {props.food.map((food) => (<FoodForList key={food.id} id={food.id} name={food.name} price={food.price} image={food.image} />))} */}
-      //   {/* {restaurantInfo.food.map((food) => (<FoodForList key={food.id} id={food.id} name={food.name} price={food.price} image={food.image} />))} */}
-      // </div>
 
 export default Shops

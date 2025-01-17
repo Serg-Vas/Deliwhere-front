@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { getToken, getUsers, createJWT } from './API';
 
 const Login = ({onAuthNameChange, onLogin, getToken}) => {
-  const [username, setUsername] = useState('Serhii Vasylevskyi');
-  const [password, setPassword] = useState('qwerty');
+  const [username, setUsername] = useState('Alice');
+  const [password, setPassword] = useState('Thrudy');
   const [showModal, setShowModal] = useState(false);
   const [token, setToken] = useState(null);
 

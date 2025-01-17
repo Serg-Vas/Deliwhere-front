@@ -17,16 +17,16 @@ class FoodForList extends React.Component {
     }
     render() {
         // const manipulatedSVG = this.props.image.replace('<svg ', '<svg height="160" ');
-        const host ="54.93.231.47" //localhost
+        const host ="localhost" //18.197.164.43
         // const host ="localhost" //
         const imageUrl = `http://${host}/DeliveryBack/foodimages/${this.props.id}.svg`;
         return (
             <figure className = "food-container">
-                <img src="foodBackground.svg" style={{width: '120%'}}/>
+                <img className='shopBack' src="foodBackground.svg" style={{width: '120%'}}/>
                 <figcaption className='food-item'>
                     {/* <span className = 'food-img' dangerouslySetInnerHTML={{__html: manipulatedSVG}}/> */}
                     <img src={imageUrl} alt="" style={{height: '160px'}}/>
-                    <h3>{this.props.name}</h3>
+                    <h4>{this.props.name}</h4>
                     <h4>{this.props.price}$</h4>
                     <button onClick={()=>this.addToCart(this.props.id, this.props.name, this.props.image)}>Add to Cart</button>
                 </figcaption>

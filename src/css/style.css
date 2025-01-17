@@ -142,7 +142,7 @@ figcaption {
 .food-item{
     flex-direction: column;
     top: 60%;
-    left: 60%;
+    /* left: 60%; */
 }
 
 .choosedfood-item{
@@ -151,7 +151,7 @@ figcaption {
 }
 
 .food-container{
-    margin-right: 4%;
+    margin: 0% 2%;
 }
 
 .shop-icon{
@@ -242,6 +242,12 @@ img{
   }
 }
 
+:root {
+    --foodBackground-height: 320px;
+}
+.shopBack{
+    transform: translateX(-10%);
+}
 .table2{
     display: none;
 }
@@ -290,20 +296,27 @@ img{
   
   @media (max-width: 1200px) {
     .choosedfood-item img.logo {
-      /* left: 60%; */
-      height: 55px;
+        height: 55px;
     }
   
-    .choosedfood-item img.foodImage {
-      height: 100px;
+    .shop-icon svg{
+        height: 125px;
+    }
+
+    .choosedfood-item img.foodImage, .food-item img{
+        height: 100px !important;
     }
 
     img.foodBackground {
-      height: 320px;
+        height: calc(var(--foodBackground-height));
     }
 
-    .choosedfood-item h4 {
-    font-size: 20px;
+    img.shopBack {
+        height: calc(var(--foodBackground-height) + 20px);
+    }
+
+    .choosedfood-item h4, .food-item h4{
+        font-size: 20px;
     }
 
     h1.board-text{
@@ -318,13 +331,13 @@ img{
         font-size: 30px;
     }
 
-    .choosedfood-item button {
+    .choosedfood-item button, .food-item button{
         padding: 2px 4px;
         font-size: 14px;
     }
 
     .restaurant-blank{
-    width: 23vw !important;
+        width: 23vw !important;
     }
     
     .restaurant-table{
@@ -349,20 +362,28 @@ img{
   }
   
   @media (max-width: 600px) {
-    .choosedfood-item img.logo {
+    .choosedfood-item img.logo{
       /* left: 50%; */
-      height: 45px;
+      height: 45px !important;
     }
   
-    .choosedfood-item img.foodImage {
-      height: 70px;
+    .shop-icon svg{
+        height: 100px;
+    }
+
+    .choosedfood-item img.foodImage, .food-item img{
+      height: 70px !important;
     }
 
     img.foodBackground {
-        height: 260px;
+        height: calc(var(--foodBackground-height) - 60px);
     }
 
-    .choosedfood-item h4 {
+    img.shopBack {
+        height: calc(var(--foodBackground-height) - 60px);
+    }
+
+    .choosedfood-item h4, .food-item h4{
     font-size: 18px;
     }
 
@@ -378,7 +399,7 @@ img{
         font-size: 22px;
     }
 
-    .choosedfood-item button {
+    .choosedfood-item button, .food-item button{
         padding: 1px 2px;
         font-size: 12px;
     }

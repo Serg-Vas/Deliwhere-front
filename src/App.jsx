@@ -12,7 +12,7 @@ import { decodeJWT } from './components/API';
 // import axios from 'axios';
 
 // const host ="localhost" //54.93.231.47
-const host ="54.93.231.47" //localhost
+const host ="localhost" //18.197.164.43
 
 class App extends React.Component {
   constructor(props) {

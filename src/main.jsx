@@ -1,14 +1,16 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import "./css/style.css"
-// import "./css/Header.css"
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App.jsx';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import './css/style.css';
+// import './css/Header.css';
 
-// ReactDOM.createRoot(document.getElementById('root')).render(
-//   <React.StrictMode>
-//     <App />
-//   </React.StrictMode>,
-// )
+const root = ReactDOM.createRoot(document.getElementById('root'));
 
-const root = ReactDOM.createRoot(document.getElementById('root'))
-root.render(<App />)
+const clientId = 'YOUR_GOOGLE_CLIENT_ID'; // Replace with your actual Google Client ID
+
+root.render(
+  <GoogleOAuthProvider clientId={clientId}>
+    <App />
+  </GoogleOAuthProvider>
+);

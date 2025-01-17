@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { instance } from "./API.config.jsx";
+// import { instance } from "./API.config.jsx";
 
 // const host ="localhost" //54.93.231.47
-const host ="54.93.231.47" //localhost
+const host ="localhost" //18.197.164.43
 // const API_URL = 'http://localhost:3000';
 const API_URL2 = `http://${host}/DeliveryBack/InsertUser.php`;
 const API_URL3 = `http://${host}/DeliveryBack/CheckUser.php`;
