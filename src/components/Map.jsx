@@ -88,7 +88,7 @@ const Map = ({ onAddressUpdate }) => {
 
     // Load the Google Maps script
     const script = document.createElement('script');
-    script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyDctR8IHU0NNLIA_i0Hu5O9VVk0NislPzA&callback=initMap&libraries=places&v=weekly`;
+    script.src = `https://maps.googleapis.com/maps/api/js?key=&callback=initMap&libraries=places&v=weekly`;
     script.defer = true;
     script.async = true;
     document.head.appendChild(script);
