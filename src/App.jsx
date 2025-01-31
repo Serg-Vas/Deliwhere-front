@@ -1,4 +1,5 @@
 import React from 'react';
+import { GoogleLogin } from '@react-oauth/google';
 import { BrowserRouter as Router, Routes, Route, Link, Navigate } from "react-router-dom";
 // import  { redirect } from 'react-router-dom'
 import Shops from './components/Shops';
@@ -6,6 +7,7 @@ import Cart from './components/Cart';
 import MainPage from './components/MainPage';
 import Register from './components/Register';
 import Login from './components/Login';
+import MyGoogleLogin from './components/GoogleLogin';
 import Logout from './components/Logout';
 // import Token from './components/Token';
 import { decodeJWT } from './components/API';
@@ -73,6 +75,13 @@ class App extends React.Component {
   //   this.setState({ isLoggedIn: true });
   //   this.saveAuthInfo(this.state.token, true);
   // };
+
+  responseMessage = (response) => {
+    console.log(response);
+  };
+  errorMessage = (error) => {
+      console.log(error);
+  };
 
   handleLogout = () => {
     this.setState({ isLoggedIn: false });
@@ -197,7 +206,14 @@ class App extends React.Component {
 
     return (
       <div className="">
+        {/* <div>
+            <h2>React Google Login</h2>
+            <br />
+            <br />
+            <GoogleLogin onSuccess={this.responseMessage} onError={this.errorMessage} />
+            </div> */}
         {/* <Header /> */}
+            {/* <h1>[{localStorage.getItem('token')}]</h1> */}
         <Router>
           <header className="Header">
             <nav className="navbar">
@@ -210,6 +226,11 @@ class App extends React.Component {
               <div className='login'>
               {!localStorage.getItem('token') && (
                 <>
+                  <MyGoogleLogin
+                    // onLogin={this.handleLogin}
+                    onAuthNameChange={this.handleAuthNameChange}
+                    getToken={this.handleToken}
+                    />
                   <Login
                     // onLogin={this.handleLogin}
                     onAuthNameChange={this.handleAuthNameChange}

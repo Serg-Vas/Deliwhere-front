@@ -7,7 +7,7 @@ import './css/style.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-const clientId = 'YOUR_GOOGLE_CLIENT_ID'; // Replace with your actual Google Client ID
+const clientId = '665641574696-hm79hmbe8o11kh5mb7277p5l4ne072tk.apps.googleusercontent.com'; // Replace with your actual Google Client ID
 
 root.render(
   <GoogleOAuthProvider clientId={clientId}>

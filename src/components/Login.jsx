@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { getToken, getUsers, createJWT } from './API';
+import { googleLogout, useGoogleLogin } from '@react-oauth/google';
+import axios from 'axios';
 
 const Login = ({onAuthNameChange, onLogin, getToken}) => {
   const [username, setUsername] = useState('Alice');
   const [password, setPassword] = useState('Thrudy');
   const [showModal, setShowModal] = useState(false);
   const [token, setToken] = useState(null);
+  const [googleUser, setGoogleUser] = useState(null);
+  const [googleProfile, setGoogleProfile] = useState(null);
 
   const handleLogin = async () => {
     const userData = await getUsers(username, password);
@@ -36,60 +40,98 @@ const Login = ({onAuthNameChange, onLogin, getToken}) => {
     }
   };
 
+  const googleLogin = useGoogleLogin({
+    onSuccess: (codeResponse) => {
+      console.log({codeResponse});
+      setGoogleUser(codeResponse)},
+    onError: (error) => console.error('Google Login Failed:', error),
+  });
+
+  useEffect(() => {
+    if (googleUser) {
+      axios
+        .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${googleUser.access_token}`, {
+          headers: {
+            Authorization: `Bearer ${googleUser.access_token}`,
+            Accept: 'application/json',
+          },
+        })
+        .then((res) => {
+          setGoogleProfile(res.data);
+          setUsername(res.data.name); // Update username with Google profile name
+          console.log('Google User Data:', res.data);
+        })
+        .catch((err) => console.error(err));
+    }
+  }, [googleUser]);
+
+  const googleLogoutHandler = () => {
+    googleLogout();
+    setGoogleProfile(null);
+  };
+
   return (
-        <div>
-            <button
-              type="button"
-              className="btn btn-primary"
-              onClick={() => setShowModal(true)}
-            >
-             Login
-            </button>
-    
-          {showModal && (
-            <div className="modal text-dark" tabIndex="-1" role="dialog" style={{ display: "block"}}>
-              <div className="modal-dialog" role="document">
-                <div className="modal-content">
-                  <div className="modal-header">
-                    <h5 className="modal-title">Login</h5>
-                    <button type="button" className="close" onClick={() => setShowModal(false)}>
-                      <span aria-hidden="true">&times;</span>
+    <div>
+      <button type="button" className="btn btn-primary" onClick={() => setShowModal(true)}>
+        Login
+      </button>
+
+      {showModal && (
+        <div className="modal text-dark" tabIndex="-1" role="dialog" style={{ display: 'block' }}>
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">Login</h5>
+                <button type="button" className="close" onClick={() => setShowModal(false)}>
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div className="modal-body">
+                <form>
+                  <div>
+                    <label htmlFor="username">Username:</label>
+                    <input
+                      type="text"
+                      id="username"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="password">Password:</label>
+                    <input
+                      type="password"
+                      id="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                  </div>
+                  <button type="button" className="btn btn-primary" onClick={handleLogin}>
+                    Login
+                  </button>
+                </form>
+                <hr />
+                {googleProfile ? (
+                  <div>
+                    <img src={googleProfile.picture} alt="user" />
+                    <p>Name: {googleProfile.name}</p>
+                    <p>Email: {googleProfile.email}</p>
+                    <button className="btn btn-secondary" onClick={googleLogoutHandler}>
+                      Logout
                     </button>
                   </div>
-                  <div className="modal-body">
-                  <form>
-                    <div>
-                      <label htmlFor="username">Username:</label>
-                      <input
-                        type="text"
-                        id="username"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="password">Password:</label>
-                      <input
-                        type="password"
-                        id="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                      />
-                    </div>
-                    <button type="button" className="btn btn-primary" onClick={handleLogin}>
-                      Login
-                    </button>
-                    </form>
-                  </div>
-                </div>
+                ) : (
+                  <button className="btn btn-danger" onClick={googleLogin}>
+                    Sign in with Google 🚀
+                  </button>
+                )}
               </div>
             </div>
-          )}
-          {/* <div>
-            <p>{authName}</p>
-          </div> */}
+          </div>
         </div>
-      );
+      )}
+    </div>
+  );
     };
 
 export default Login;
