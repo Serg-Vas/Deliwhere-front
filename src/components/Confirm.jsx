@@ -33,6 +33,14 @@ const Confirm = ({ clientData, totalOrderPrice, totalFoodPrice, foodItems, foodA
       setConfirmed(false);
       setOrderSubmitted(true);
       setOrderFailed(false);
+
+      // Save order information in local storage
+      const orderInfo = {
+        foodItems,
+        totalOrderPrice,
+        localStorageData,
+      };
+      localStorage.setItem('orderInfo', JSON.stringify(orderInfo));
     } catch (error) {
       console.error("Order submission failed:", error);
       setConfirmed(false);

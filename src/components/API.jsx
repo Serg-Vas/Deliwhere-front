@@ -12,6 +12,38 @@ const API_URL5 = `http://${host}/DeliveryBack/CreateOrder.php`;
 const API_URL6 = `http://${host}/DeliveryBack/generateToken.php`;
 const API_URL7 = `http://${host}/DeliveryBack/getInfo.php`;
 const API_URL8 = `http://${host}/DeliveryBack/SelectRestaurant.php`;
+const API_URL9 = `http://${host}/DeliveryBack/UpdateUser.php`;
+const API_URL10 = `http://${host}/DeliveryBack/GetOrders.php`;
+
+export const getOrders = async (user) => {
+  try {
+    const response = await axios.get(`${API_URL10}`, {
+      params: { user },
+      headers: {
+        'Authorization': localStorage.getItem("token"),
+      },
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const updateUser = async (user) => {
+  try {
+    const response = await fetch(`${API_URL9}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(user),
+    });
+    console.log({ response });
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
 
 export const selectRestaurant = async (id) => {
   const response = await axios.get(`${API_URL8}?restaurant_id=${id}`);

@@ -11,6 +11,8 @@ import MyGoogleLogin from './components/GoogleLogin';
 import Logout from './components/Logout';
 // import Token from './components/Token';
 import { decodeJWT } from './components/API';
+import Profile from './components/Profile';
+import Orders from './components/Orders';
 // import axios from 'axios';
 
 // const host ="localhost" //54.93.231.47
@@ -219,8 +221,9 @@ class App extends React.Component {
             <nav className="navbar">
               <div className='pages'>
                 <h1><Link to="/">Shops</Link></h1>
-                {/* <li><h1>|</h1></li> */}
                 <h1><Link to="/cart">Cart</Link></h1>
+                {localStorage.getItem('token') && <h1><Link to="/profile">Profile</Link></h1>}
+                {localStorage.getItem('token') && <h1><Link to="/orders">Your Orders</Link></h1>}
               </div>
               {/* {shops.length > 0 && shops.map((shop) => (<li key={shop.id}><h1><Link to={"/" + shop.id}>{shop.name}</Link></h1></li>))} */}
               <div className='login'>
@@ -267,6 +270,8 @@ class App extends React.Component {
             <Route path="/cart" element={<Cart shops={shops} clientName={this.state.authName}/>}></Route>
             {/* {shops.map((shop) => (<Route key={shop.id} path={"/" + shop.id} element={<Shops food={shop.food} logo={shop.logo}/>}></Route>))} */}
             {shops.map((shop) => (<Route key={shop.id} path={"/" + shop.id} element={<Shops food={shop.id}/>}></Route>))}
+            <Route path="/profile" element={<Profile userData={JSON.parse(localStorage.getItem('userData'))} />}></Route>
+            <Route path="/orders" element={<Orders />}></Route>
             {/* <Route path="/login" element={<Login />}></Route> */}
             {/* <Route path="/register" element={<Register />}></Route> */}
           </Routes>

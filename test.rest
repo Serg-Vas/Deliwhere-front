@@ -9,3 +9,8 @@ http://localhost/DeliveryBack/SelectRestaurants.php
 http://localhost/DeliveryBack/db_connection.php
 ###
 http://localhost/DeliveryBack/test.php
+
+### Get User Data from Google People API
+GET https://people.googleapis.com/v1/people/me?personFields=phoneNumbers
+Authorization: Bearer ya29.a0AXeO80Ty60goYZr7MjYOf85OIxYqrnULfUya4-u1umKfILpSXTPIb7mygLRnL3TivDrDEEQkwYTm2TqFqw-vSyjRgvm8_P_aAGAJ0U8n1X8ECgvi_iX-yCGwAo4wrQinUZBleouw07eSNC5k7kkJ5nRt8OVtpeyGA4yrdM1QaCgYKAekSARMSFQHGX2MiRSe4rsCq1AFQnMOgWed7QQ0175
+Accept: application/json

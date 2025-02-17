@@ -111,7 +111,7 @@ console.log(list, 'items');
       </figure>
       {list.length !== 0 && <div>
           <h2 className='total'>Total price: {sum}$</h2>
-          {<Confirm clientData={JSON.parse(localStorage.getItem('userData'))} totalOrderPrice={sum} totalFoodPrice={subSum} foodItems={list} localStorageData={localStorage.getItem('food')}/>}
+          <Confirm clientData={JSON.parse(localStorage.getItem('userData'))} totalOrderPrice={sum} totalFoodPrice={subSum} foodItems={list} localStorageData={localStorage.getItem('food')}/>
       </div>}
       {/* <button onClick={test}>Submit</button> clear storage!!!  */}
           {/* <nav style={{ width: "25vw" }}>
