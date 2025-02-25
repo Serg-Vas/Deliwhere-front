@@ -19,12 +19,19 @@ class Profile extends React.Component {
     this.fetchUserPhoto();
   }
 
-  fetchUserPhoto = async () => {
+  fetchUserPhoto = async (retryCount = 0) => {
     try {
       const userPhoto = await getUserPhoto(this.props.userData.id);
       this.setState({ userPhoto: userPhoto.picture });
     } catch (error) {
-      console.error('Error fetching user photo:', error);
+      if (error.response && error.response.status === 429 && retryCount < 3) {
+        // Retry after a delay if we receive a 429 error
+        setTimeout(() => {
+          this.fetchUserPhoto(retryCount + 1);
+        }, 2000); // Retry after 2 seconds
+      } else {
+        console.error('Error fetching user photo:', error);
+      }
     }
   };
 
