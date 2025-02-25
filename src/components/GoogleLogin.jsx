@@ -71,22 +71,24 @@ const MyGoogleLogin = ({ onAuthNameChange, onLogin, getToken }) => {
 
   const registerNewUser = async (userData) => {
     try {
-      const res = await axios.get('https://people.googleapis.com/v1/people/me?personFields=phoneNumbers,emailAddresses,names,addresses', {
+      const res = await axios.get('https://people.googleapis.com/v1/people/me?personFields=phoneNumbers,emailAddresses,names,addresses,photos', {
         headers: { Authorization: `Bearer ${googleUser.access_token}` },
       });
       console.log('User Data:', res.data);
   
-      let phoneNumber = res.data.phoneNumbers ? res.data.phoneNumbers[0].value : 'No phone number available';
+      let phoneNumber = res.data.phoneNumbers ? res.data.phoneNumbers[0].value : '';
       phoneNumber = phoneNumber.replace(/\s+/g, ''); // Remove spaces from phone number
   
       let address = res.data.addresses ? res.data.addresses[0].formattedValue : 'No address available';
+      let picture = res.data.photos ? res.data.photos[0].url : 'No picture available';
   
       const newUser = {
         name: userData.name,
         email: userData.email,
         password: 'defaultPassword', // You may want to use a generated password or authentication token
         address: address,
-        phone: phoneNumber
+        phone: phoneNumber,
+        picture: picture
       };
       // const response = await createUser(newUser);
       const response = await createUser2(newUser);
@@ -94,7 +96,7 @@ const MyGoogleLogin = ({ onAuthNameChange, onLogin, getToken }) => {
       const data = await response.json();
       // const data = response.config.data; // JSON.parse(response.config.data);
       console.log('Registration response:', response, { status: response.status });
-
+  
       if (response.status === 201) {
         console.log('User registered successfully.', data);
         // const token = await createJWT(registerData.config.data);

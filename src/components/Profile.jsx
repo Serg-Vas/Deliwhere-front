@@ -1,5 +1,5 @@
 import React from 'react';
-import { updateUser } from './API';
+import { updateUser, getUserPhoto } from './API';
 
 class Profile extends React.Component {
   constructor(props) {
@@ -11,8 +11,22 @@ class Profile extends React.Component {
         phone: false,
       },
       userData: this.props.userData,
+      userPhoto: '',
     };
   }
+
+  componentDidMount() {
+    this.fetchUserPhoto();
+  }
+
+  fetchUserPhoto = async () => {
+    try {
+      const userPhoto = await getUserPhoto(this.props.userData.id);
+      this.setState({ userPhoto: userPhoto.picture });
+    } catch (error) {
+      console.error('Error fetching user photo:', error);
+    }
+  };
 
   handleEdit = (field) => {
     this.setState((prevState) => ({
@@ -63,11 +77,16 @@ class Profile extends React.Component {
   };
 
   render() {
-    const { isEditing, userData } = this.state;
+    const { isEditing, userData, userPhoto } = this.state;
 
     return (
       <div className="profile">
         <h2>Profile</h2>
+        {userPhoto && (
+          <div>
+            <img src={userPhoto} alt="User" style={{ width: '150px', height: '150px', borderRadius: '50%' }} />
+          </div>
+        )}
         <div>
           <strong>Name:</strong>
           <br />

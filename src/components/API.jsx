@@ -14,6 +14,18 @@ const API_URL7 = `http://${host}/DeliveryBack/getInfo.php`;
 const API_URL8 = `http://${host}/DeliveryBack/SelectRestaurant.php`;
 const API_URL9 = `http://${host}/DeliveryBack/UpdateUser.php`;
 const API_URL10 = `http://${host}/DeliveryBack/GetOrders.php`;
+const API_URL11 = `http://${host}/DeliveryBack/GetUserPhoto.php`;
+
+export const getUserPhoto = async (userId) => {
+  try {
+    const response = await axios.get(`${API_URL11}`, {
+      params: { userId },
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
 
 export const getOrders = async (user) => {
   try {
